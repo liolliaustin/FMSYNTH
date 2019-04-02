@@ -4,11 +4,11 @@
 #include "FMSynth.h"
 
 // inputs order
-// 1) Modulator Wave Int
-// 2) Modulator Wave Phase
-// 3) Scale Factor
-// 4) Carrier Wave Int
-// 5) Carrier Wave Phase
+// 1) Modulator Wave Int (integer)
+// 2) Modulator Wave Phase (radians)
+// 3) Scale Factor (integer)
+// 4) Carrier Wave Int (integer)
+// 5) Carrier Wave Phase (radians)
 
 int main(int argc, char * argv[]) {
 
@@ -69,7 +69,7 @@ int main(int argc, char * argv[]) {
 
 	float carrier_phase = atoi(argv[5]);
 	float modulator_phase = atoi(argv[2]);
-	int scale_factor = atoi(argv[3]);
+	float scale_factor = atoi(argv[3]);
 
 	int mod_octave = 1 + atoi(argv[1])/12;
 	int car_octave = 1 + atoi(argv[4])/12;
@@ -84,11 +84,6 @@ int main(int argc, char * argv[]) {
 	//Modulator Wave Definition
 	modulator_wave = notes[atoi(argv[1])%12];
 	modulator_conversion = Conversion[atoi(argv[1])%12];
-
-	printf("Mod Note: %i\nCarrier Note: %i\n", atoi(argv[1])%12, atoi(argv[4])%12);
-
-	// for(int i=0; i<30; i++)
-	// 	printf("%f\n", modulator_wave[i]);
 
 	FM_Synth(modulator_wave, mod_octave, modulator_phase, modulator_conversion, mod_size, scale_factor, carrier_wave, car_octave, carrier_phase, carrier_conversion, car_size); 
 
