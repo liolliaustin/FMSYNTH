@@ -4,7 +4,7 @@
 #include "FMSynth.h"
 
 //void FM_Synth(char * mod_freq, float mod_octave, float mod_phase, float scale_factor, char * car_freq, float car_octave, float car_phase){
-void FM_Synth(float *modulator_wave, int mod_octave, float modulator_phase, float modulator_conversion, int mod_size, float scale_factor, float *carrier_wave, int car_octave, float carrier_phase, float carrier_conversion, int car_size){
+void FM_Synth(float *modulator_wave, int mod_octave, float modulator_phase, float modulator_conversion, int mod_size, int scale_factor, float *carrier_wave, int car_octave, float carrier_phase, float carrier_conversion, int car_size){
 
 	FILE *f = fopen("outresult.txt", "w");
 	if (f == NULL)
@@ -14,6 +14,9 @@ void FM_Synth(float *modulator_wave, int mod_octave, float modulator_phase, floa
 	}
 
 	float modWaveResult, carrierWaveResult, cartest;
+
+	// for(int j=0; j<30; j++)
+	// 	printf("%f\n", modulator_wave[j]);
 
 	int i, differnt=0;
 	for (i = 0; i < 3000; i++){
@@ -26,6 +29,9 @@ void FM_Synth(float *modulator_wave, int mod_octave, float modulator_phase, floa
 		carrierWaveResult = carrier_wave[carRead];
 
 		fprintf(f, "%f\n", carrierWaveResult);
+
+		//printf("%f\n", modWaveResult);
+	
 	}
 
 	fclose(f);
