@@ -14,7 +14,8 @@ void FM_Synth(
 	float scale_factor,
 	int carrier_wave, 
 	float carrier_phase,
-	int sync, 
+	int sync,
+	int attackMaximum, 
 	int attackDuration,
 	int decayDuration, 
 	int sustainAmplitude, 
@@ -23,6 +24,8 @@ void FM_Synth(
 
 ){
 
+#pragma HLS PIPELINE II=1
+#pragma HLS INTERFACE ap_ctrl_none port=return
 #pragma HLS INTERFACE s_axilite port=modulator_wave bundle=CTRL_BUS
 #pragma HLS INTERFACE s_axilite port=modulator_phase bundle=CTRL_BUS
 #pragma HLS INTERFACE s_axilite port=scale_factor bundle=CTRL_BUS
@@ -44,6 +47,10 @@ void FM_Synth(
 	static int car_octave;
 	static int mod_size;
 	static int car_size;
+
+	static int attackSlope;
+	static int decaySlope;
+	static int releaseSlope;
 
 
 	if (sync == 0){
@@ -69,9 +76,9 @@ void FM_Synth(
 
 		position = 0;
 
-		static int attackSlope = MAX_ATTACK/attackDuration;
-		static int decaySlope = (sustainAmplitude - MAX_ATTACK)/(decayDuration - attackDuration);
-		static int releaseSlope = (-1)*sustainAmplitude/(releaseDuration - sustainDuration);
+		attackSlope = attackMaximum/attackDuration;
+		decaySlope = (sustainAmplitude - MAX_ATTACK)/(decayDuration - attackDuration);
+		releaseSlope = (-1)*sustainAmplitude/(releaseDuration - sustainDuration);
 
 	}
 
@@ -121,19 +128,21 @@ int envelope(
 
 ){
 
+	int resultAmplitude;
+
 	if(time < attackDuration){
 		resultAmplitude = attackSlope*time;
 	}
 
-	else if(attackDuration <= time && time < decayDuration){
+	else if(time < decayDuration){
 		resultAmplitude =  decaySlope*attackDuration + attackSlope*attackDuration - decaySlope*time;
 	}
 
-	else if(decayDuration <= time && time < sustainDuration){
+	else if( time < sustainDuration){
 		resultAmplitude = sustainAmplitude;
 	}
 
-	else if(sustainDuration <= time && time < releaseDuration){
+	else if(time < releaseDuration){
 		resultAmplitude = releaseSlope*sustainDuration + sustainAmplitude - releaseSlope*time;
 	}
 

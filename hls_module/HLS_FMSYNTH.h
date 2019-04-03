@@ -1,7 +1,7 @@
 #ifndef __HLS_FMSYNTH_INCLUDED__
 #define __HLS_FMSYNTH_INCLUDED__
 
-int MAX_ATTACK = 2;  
+int MAX_ATTACK = 2;
 
 float notes[][437] = {
 
@@ -60,6 +60,7 @@ void FM_Synth(
 	int carrier_wave, 
 	float carrier_phase,
 	int sync,
+	int attackMaximum,
 	int attackDuration, 
 	int sustainAmplitude, 
 	int sustainDuration, 

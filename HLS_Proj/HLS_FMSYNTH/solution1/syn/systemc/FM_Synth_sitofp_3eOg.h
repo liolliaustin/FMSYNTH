@@ -24,7 +24,7 @@ SC_MODULE(FM_Synth_sitofp_3eOg) {
 
 
 
-    ACMP_sitofp<ID, 3, din0_WIDTH, dout_WIDTH> ACMP_sitofp_U;
+    ACMP_sitofp<ID, 4, din0_WIDTH, dout_WIDTH> ACMP_sitofp_U;
 
     SC_CTOR(FM_Synth_sitofp_3eOg):  ACMP_sitofp_U ("ACMP_sitofp_U") {
         ACMP_sitofp_U.clk(clk);

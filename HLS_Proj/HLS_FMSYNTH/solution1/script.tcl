@@ -8,10 +8,10 @@ set_top FM_Synth
 add_files ../hls_module/HLS_FMSYNTH.cpp
 add_files ../hls_module/HLS_FMSYNTH.h
 open_solution "solution1"
-set_part {xc7vx485tffg1157-2}
+set_part {xc7z100ffg900-2}
 create_clock -period 10 -name default
 #source "./HLS_FMSYNTH/solution1/directives.tcl"
 #csim_design
 csynth_design
 #cosim_design
-export_design -format ip_catalog
+export_design -rtl verilog -format ip_catalog
