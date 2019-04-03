@@ -77,6 +77,7 @@ void FM_Synth(
 
 	if(press == 1){
 		sustainDuration += 1;
+		releaseDuration += 1;
 	}
 
 	int amplitude = envelope(position, attackSlope, attackDuration, decaySlope, decayDuration, sustainAmplitude, sustainDuration, releaseSlope, releaseDuration);
