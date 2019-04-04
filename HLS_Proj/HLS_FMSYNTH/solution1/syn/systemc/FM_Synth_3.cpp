@@ -21,6 +21,9 @@ void FM_Synth::thread_hdltv_gen() {
         mHdltvoutHandle << mComma << "{"  <<  " \"result_V_TDATA\" :  \"" << result_V_TDATA.read() << "\" ";
         mHdltvoutHandle << " , " <<  " \"result_V_TVALID\" :  \"" << result_V_TVALID.read() << "\" ";
         mHdltvinHandle << " , " <<  " \"result_V_TREADY\" :  \"" << result_V_TREADY.read() << "\" ";
+        mHdltvoutHandle << " , " <<  " \"newNote_V_TDATA\" :  \"" << newNote_V_TDATA.read() << "\" ";
+        mHdltvoutHandle << " , " <<  " \"newNote_V_TVALID\" :  \"" << newNote_V_TVALID.read() << "\" ";
+        mHdltvinHandle << " , " <<  " \"newNote_V_TREADY\" :  \"" << newNote_V_TREADY.read() << "\" ";
         mHdltvinHandle << " , " <<  " \"press\" :  \"" << press.read() << "\" ";
         mHdltvinHandle << " , " <<  " \"attackMaximum\" :  \"" << attackMaximum.read() << "\" ";
         mHdltvinHandle << " , " <<  " \"attackDuration\" :  \"" << attackDuration.read() << "\" ";

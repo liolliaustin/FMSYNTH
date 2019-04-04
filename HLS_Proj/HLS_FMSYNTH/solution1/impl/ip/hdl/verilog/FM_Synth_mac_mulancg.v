@@ -10,7 +10,7 @@
 module FM_Synth_mac_mulancg_DSP48_0(
     input  [10 - 1:0] in0,
     input  [14 - 1:0] in1,
-    input  [4 - 1:0] in2,
+    input  [5 - 1:0] in2,
     output [14 - 1:0]  dout);
 
 wire signed [25 - 1:0]     a;

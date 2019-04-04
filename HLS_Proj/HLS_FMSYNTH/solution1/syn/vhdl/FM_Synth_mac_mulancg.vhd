@@ -13,7 +13,7 @@ entity FM_Synth_mac_mulancg_DSP48_0 is
 port (
     in0:  in  std_logic_vector(10 - 1 downto 0);
     in1:  in  std_logic_vector(14 - 1 downto 0);
-    in2:  in  std_logic_vector(4 - 1 downto 0);
+    in2:  in  std_logic_vector(5 - 1 downto 0);
     dout: out std_logic_vector(14 - 1 downto 0));
 
 end entity;

@@ -52,6 +52,7 @@ int sizes[] = {437,412,389,367,347,327,309,292,275,260,245,232};
 void FM_Synth(
 
 	hls::stream<float> & result,
+	hls::stream<float> & newNote,
 
 	int press,
 	int modulator_wave, 
@@ -60,10 +61,11 @@ void FM_Synth(
 	int carrier_wave, 
 	float carrier_phase,
 	int sync,
-	int attackMaximum,
-	int attackDuration, 
+	int attackMaximum, 
+	int attackDuration,
+	int decayDuration, 
 	int sustainAmplitude, 
-	int sustainDuration, 
+	int sustainDuration,
 	int releaseDuration
 
 );

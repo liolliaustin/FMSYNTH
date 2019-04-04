@@ -7,6 +7,7 @@
 void FM_Synth(
 
 	hls::stream<float> & result,
+	hls::stream<float> & newNote,
 
 	int press,
 	int modulator_wave, 
@@ -34,6 +35,7 @@ void FM_Synth(
 #pragma HLS INTERFACE s_axilite port=sync bundle=CTRL_BUS
 
 #pragma HLS INTERFACE axis register both port=result
+#pragma HLS INTERFACE axis register both port=newNote
 
 	static int position = 0;
 	static int change = 1;
@@ -97,6 +99,8 @@ void FM_Synth(
 	modWaveResult = modulator_wave_values[modRead];
 
 	carRead = (int)ceil(car_octave*(scale_factor*modWaveResult*carrier_conversion + carrier_conversion*carrier_phase + position))%car_size;
+
+	newNote << change;
 
 	result << amplitude*carrier_wave_values[carRead];
 

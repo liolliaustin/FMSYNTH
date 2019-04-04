@@ -10,7 +10,7 @@
 
 module FM_Synth_fpext_32g8j
 #(parameter
-    ID         = 15,
+    ID         = 16,
     NUM_STAGE  = 1,
     din0_WIDTH = 32,
     dout_WIDTH = 64

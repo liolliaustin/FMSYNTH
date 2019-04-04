@@ -10,7 +10,7 @@ use ieee.std_logic_1164.all;
 
 entity FM_Synth_fpext_32g8j is
     generic (
-        ID         : integer := 15;
+        ID         : integer := 16;
         NUM_STAGE  : integer := 1;
         din0_WIDTH : integer := 32;
         dout_WIDTH : integer := 64

@@ -36,8 +36,8 @@
 <Resources>
 <BRAM_18K>18</BRAM_18K>
 <DSP48E>57</DSP48E>
-<FF>27998</FF>
-<LUT>24382</LUT>
+<FF>28299</FF>
+<LUT>25082</LUT>
 </Resources>
 <AvailableResources>
 <BRAM_18K>1510</BRAM_18K>
@@ -318,6 +318,42 @@
 <RtlPorts>
 <name>result_V_TREADY</name>
 <Object>result_V</Object>
+<Type>pointer</Type>
+<Scope></Scope>
+<IOProtocol>axis</IOProtocol>
+<IOConfig>register, both mode</IOConfig>
+<Dir>in</Dir>
+<Bits>1</Bits>
+<Attribute>control</Attribute>
+<CType>float</CType>
+</RtlPorts>
+<RtlPorts>
+<name>newNote_V_TDATA</name>
+<Object>newNote_V</Object>
+<Type>pointer</Type>
+<Scope></Scope>
+<IOProtocol>axis</IOProtocol>
+<IOConfig>register, both mode</IOConfig>
+<Dir>out</Dir>
+<Bits>32</Bits>
+<Attribute>data</Attribute>
+<CType>float</CType>
+</RtlPorts>
+<RtlPorts>
+<name>newNote_V_TVALID</name>
+<Object>newNote_V</Object>
+<Type>pointer</Type>
+<Scope></Scope>
+<IOProtocol>axis</IOProtocol>
+<IOConfig>register, both mode</IOConfig>
+<Dir>out</Dir>
+<Bits>1</Bits>
+<Attribute>control</Attribute>
+<CType>float</CType>
+</RtlPorts>
+<RtlPorts>
+<name>newNote_V_TREADY</name>
+<Object>newNote_V</Object>
 <Type>pointer</Type>
 <Scope></Scope>
 <IOProtocol>axis</IOProtocol>

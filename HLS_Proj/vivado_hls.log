@@ -1,5 +1,5 @@
 INFO: [HLS 200-10] Running '/home/austin/Desktop/Vivado_HLS/2017.2/bin/unwrapped/lnx64.o/vivado_hls'
-INFO: [HLS 200-10] For user 'austin' on host 'austin-Precision-T3600' (Linux_x86_64 version 4.15.0-46-generic) on Wed Apr 03 18:41:49 EDT 2019
+INFO: [HLS 200-10] For user 'austin' on host 'austin-Precision-T3600' (Linux_x86_64 version 4.15.0-46-generic) on Thu Apr 04 13:19:19 EDT 2019
 INFO: [HLS 200-10] On os Ubuntu 16.04.6 LTS
 INFO: [HLS 200-10] In directory '/home/austin/FMgit/FMSYNTH/HLS_Proj'
 INFO: [HLS 200-10] Opening project '/home/austin/FMgit/FMSYNTH/HLS_Proj/HLS_FMSYNTH'.
@@ -32,4 +32,4 @@ INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'FM_Synth_ap_fpext
 INFO: [IP_Flow 19-234] Refreshing IP repositories
 INFO: [IP_Flow 19-1704] No user IP repositories specified
 INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/home/austin/Desktop/Vivado/2017.2/data/ip'.
-INFO: [Common 17-206] Exiting Vivado at Wed Apr  3 18:42:07 2019...
+INFO: [Common 17-206] Exiting Vivado at Thu Apr  4 13:19:37 2019...
