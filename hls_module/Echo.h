@@ -9,12 +9,9 @@ void Echo(
 	hls::stream<float> & value_in,
 	hls::stream<float> & value_out,
 
-	int delay
+	int delay,
+	int scale
 	
-	float scale1,
-	float scale2,
-	float scale3
-
 );
 
 
