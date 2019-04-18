@@ -1,12 +1,12 @@
-CC = gcc
+CC = g++
 CFLAGS = -g -O2 -c
 
 
 LDFLAGS = -g -Wall 
 EXE = ap
 
-C_FILES:= $(wildcard src/*.c)
-OBJ_FILES:= $(patsubst src/%.c,bin/%.o,$(C_FILES))
+CPP_FILES:= $(wildcard hls_module/*.cpp)
+OBJ_FILES:= $(patsubst hls_module/%.cpp,bin/%.o,$(C_FILES))
 
 default: all
 
@@ -17,7 +17,7 @@ bin:
 
 
 bin/%.o : src/%.c
-	$(CC) $(CFLAGS) $(INC) -o $@ $<
+	$(CC) $(CPPFLAGS) $(INC) -o $@ $<
 
 $(EXE) : $(OBJ_FILES)
 	$(CC) $(LDFLAGS) $^ $(GRAPHICS_LIBS) -o $(EXE) -lm
