@@ -4,10 +4,57 @@
 #include <hls_stream.h>
 #include "HLS_FMSYNTH.h"
 
+int MAX_ATTACK = 2;
+
+float notes[][437] = {
+
+		{
+			#include "../WaveData/A2.txt"
+		},
+		{
+			#include "../WaveData/A#2.txt"
+		},
+		{
+			#include "../WaveData/B2.txt"
+		},
+		{
+			#include "../WaveData/C3.txt"
+		},
+		{
+			#include "../WaveData/C#3.txt"
+		},
+		{
+			#include "../WaveData/D3.txt"
+		},
+		{
+			#include "../WaveData/D#3.txt"
+		},
+		{
+			#include "../WaveData/E3.txt"
+		},
+		{
+			#include "../WaveData/F3.txt"
+		},
+		{
+			#include "../WaveData/F#3.txt"
+		},
+		{
+			#include "../WaveData/G3.txt"
+		},
+		{
+			#include "../WaveData/G#3.txt"
+		}
+	};
+
+float Conversion[] = {1/0.01439896633, 1/0.01525505033, 1/0.01616228993, 1/0.01712453358, 1/0.01814138858, 1/0.01922031621, 1/0.02036321453, 1/0.02157407597,
+				 1/0.02285693224, 1/0.02421607685, 1/0.02565603894, 1/0.02718162251};
+
+int sizes[] = {437,412,389,367,347,327,309,292,275,260,245,232};
+
 void FM_Synth(
 
 	hls::stream<float> & result,
-	hls::stream<float> & newNote,
+	//hls::stream<float> & newNote,
 
 	int press,
 	int modulator_wave, 
@@ -24,6 +71,13 @@ void FM_Synth(
 	int releaseDuration
 
 ){
+#pragma HLS INTERFACE s_axilite port=attackMaximum bundle=CTRL_BUS
+#pragma HLS INTERFACE s_axilite port=attackDuration bundle=CTRL_BUS
+#pragma HLS INTERFACE s_axilite port=decayDuration bundle=CTRL_BUS
+#pragma HLS INTERFACE s_axilite port=sustainAmplitude bundle=CTRL_BUS
+#pragma HLS INTERFACE s_axilite port=sustainDuration bundle=CTRL_BUS
+#pragma HLS INTERFACE s_axilite port=releaseDuration bundle=CTRL_BUS
+#pragma HLS INTERFACE s_axilite port=press bundle=CTRL_BUS
 
 #pragma HLS PIPELINE II=1
 #pragma HLS INTERFACE ap_ctrl_none port=return
@@ -35,7 +89,7 @@ void FM_Synth(
 #pragma HLS INTERFACE s_axilite port=sync bundle=CTRL_BUS
 
 #pragma HLS INTERFACE axis register both port=result
-#pragma HLS INTERFACE axis register both port=newNote
+//#pragma HLS INTERFACE axis register both port=newNote
 
 	static int position = 0;
 	static int change = 1;
@@ -50,9 +104,9 @@ void FM_Synth(
 	static int mod_size;
 	static int car_size;
 
-	static int attackSlope;
-	static int decaySlope;
-	static int releaseSlope;
+	static float attackSlope;
+	static float decaySlope;
+	static float releaseSlope;
 
 
 	if (sync == 0){
@@ -78,9 +132,9 @@ void FM_Synth(
 
 		position = 0;
 
-		attackSlope = attackMaximum/attackDuration;
-		decaySlope = (sustainAmplitude - MAX_ATTACK)/(decayDuration - attackDuration);
-		releaseSlope = (-1)*sustainAmplitude/(releaseDuration - sustainDuration);
+		attackSlope = (float)attackMaximum/attackDuration;
+		decaySlope = (float)(sustainAmplitude - MAX_ATTACK)/(decayDuration - attackDuration);
+		releaseSlope = (float)(-1)*sustainAmplitude/(releaseDuration - sustainDuration);
 
 	}
 
@@ -89,7 +143,9 @@ void FM_Synth(
 		releaseDuration += 1;
 	}
 
-	int amplitude = envelope(position, attackSlope, attackDuration, decaySlope, decayDuration, sustainAmplitude, sustainDuration, releaseSlope, releaseDuration);
+	float amplitude = envelope(position, attackSlope, attackDuration, decaySlope, decayDuration, sustainAmplitude, sustainDuration, releaseSlope, releaseDuration);
+
+
 
 	float modWaveResult, carrierWaveResult, cartest;
 	int modRead, carRead;
@@ -100,9 +156,11 @@ void FM_Synth(
 
 	carRead = (int)ceil(car_octave*(scale_factor*modWaveResult*carrier_conversion + carrier_conversion*carrier_phase + position))%car_size;
 
-	newNote << change;
+	//newNote << change;
 
 	result << amplitude*carrier_wave_values[carRead];
+
+	//printf("result: %f\n", amplitude*carrier_wave_values[carRead]);
 
 	position++;
 
@@ -118,21 +176,22 @@ void FM_Synth(
 //
 //Attack and sustain maximum values can not exceed **** in amplitude
 
-int envelope(
+float envelope(
 
 	int time,
-	int attackSlope, 
+	float attackSlope,
 	int attackDuration, 
-	int decaySlope, 
+	float decaySlope,
 	int decayDuration, 
 	int sustainAmplitude, 
 	int sustainDuration, 
-	int releaseSlope, 
+	float releaseSlope,
 	int releaseDuration
 
 ){
+#pragma HLS INLINE
 
-	int resultAmplitude;
+	float resultAmplitude;
 
 	if(time < attackDuration){
 		resultAmplitude = attackSlope*time;
@@ -153,6 +212,8 @@ int envelope(
 	else {
 		resultAmplitude = 0;
 	}
+
+	//printf("Amplitude: %i\n", attackSlope);
 
 	return resultAmplitude;
 }
