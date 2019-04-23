@@ -21,6 +21,23 @@ int XFm_synth_CfgInitialize(XFm_synth *InstancePtr, XFm_synth_Config *ConfigPtr)
 }
 #endif
 
+void XFm_synth_Set_press(XFm_synth *InstancePtr, u32 Data) {
+    Xil_AssertVoid(InstancePtr != NULL);
+    Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    XFm_synth_WriteReg(InstancePtr->Ctrl_bus_BaseAddress, XFM_SYNTH_CTRL_BUS_ADDR_PRESS_DATA, Data);
+}
+
+u32 XFm_synth_Get_press(XFm_synth *InstancePtr) {
+    u32 Data;
+
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    Data = XFm_synth_ReadReg(InstancePtr->Ctrl_bus_BaseAddress, XFM_SYNTH_CTRL_BUS_ADDR_PRESS_DATA);
+    return Data;
+}
+
 void XFm_synth_Set_modulator_wave(XFm_synth *InstancePtr, u32 Data) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -106,20 +123,122 @@ u32 XFm_synth_Get_carrier_phase(XFm_synth *InstancePtr) {
     return Data;
 }
 
-void XFm_synth_Set_sync(XFm_synth *InstancePtr, u32 Data) {
+void XFm_synth_Set_user_writing(XFm_synth *InstancePtr, u32 Data) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XFm_synth_WriteReg(InstancePtr->Ctrl_bus_BaseAddress, XFM_SYNTH_CTRL_BUS_ADDR_SYNC_DATA, Data);
+    XFm_synth_WriteReg(InstancePtr->Ctrl_bus_BaseAddress, XFM_SYNTH_CTRL_BUS_ADDR_USER_WRITING_DATA, Data);
 }
 
-u32 XFm_synth_Get_sync(XFm_synth *InstancePtr) {
+u32 XFm_synth_Get_user_writing(XFm_synth *InstancePtr) {
     u32 Data;
 
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XFm_synth_ReadReg(InstancePtr->Ctrl_bus_BaseAddress, XFM_SYNTH_CTRL_BUS_ADDR_SYNC_DATA);
+    Data = XFm_synth_ReadReg(InstancePtr->Ctrl_bus_BaseAddress, XFM_SYNTH_CTRL_BUS_ADDR_USER_WRITING_DATA);
+    return Data;
+}
+
+void XFm_synth_Set_attackMaximum(XFm_synth *InstancePtr, u32 Data) {
+    Xil_AssertVoid(InstancePtr != NULL);
+    Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    XFm_synth_WriteReg(InstancePtr->Ctrl_bus_BaseAddress, XFM_SYNTH_CTRL_BUS_ADDR_ATTACKMAXIMUM_DATA, Data);
+}
+
+u32 XFm_synth_Get_attackMaximum(XFm_synth *InstancePtr) {
+    u32 Data;
+
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    Data = XFm_synth_ReadReg(InstancePtr->Ctrl_bus_BaseAddress, XFM_SYNTH_CTRL_BUS_ADDR_ATTACKMAXIMUM_DATA);
+    return Data;
+}
+
+void XFm_synth_Set_attackDuration(XFm_synth *InstancePtr, u32 Data) {
+    Xil_AssertVoid(InstancePtr != NULL);
+    Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    XFm_synth_WriteReg(InstancePtr->Ctrl_bus_BaseAddress, XFM_SYNTH_CTRL_BUS_ADDR_ATTACKDURATION_DATA, Data);
+}
+
+u32 XFm_synth_Get_attackDuration(XFm_synth *InstancePtr) {
+    u32 Data;
+
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    Data = XFm_synth_ReadReg(InstancePtr->Ctrl_bus_BaseAddress, XFM_SYNTH_CTRL_BUS_ADDR_ATTACKDURATION_DATA);
+    return Data;
+}
+
+void XFm_synth_Set_decayDuration(XFm_synth *InstancePtr, u32 Data) {
+    Xil_AssertVoid(InstancePtr != NULL);
+    Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    XFm_synth_WriteReg(InstancePtr->Ctrl_bus_BaseAddress, XFM_SYNTH_CTRL_BUS_ADDR_DECAYDURATION_DATA, Data);
+}
+
+u32 XFm_synth_Get_decayDuration(XFm_synth *InstancePtr) {
+    u32 Data;
+
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    Data = XFm_synth_ReadReg(InstancePtr->Ctrl_bus_BaseAddress, XFM_SYNTH_CTRL_BUS_ADDR_DECAYDURATION_DATA);
+    return Data;
+}
+
+void XFm_synth_Set_sustainAmplitude(XFm_synth *InstancePtr, u32 Data) {
+    Xil_AssertVoid(InstancePtr != NULL);
+    Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    XFm_synth_WriteReg(InstancePtr->Ctrl_bus_BaseAddress, XFM_SYNTH_CTRL_BUS_ADDR_SUSTAINAMPLITUDE_DATA, Data);
+}
+
+u32 XFm_synth_Get_sustainAmplitude(XFm_synth *InstancePtr) {
+    u32 Data;
+
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    Data = XFm_synth_ReadReg(InstancePtr->Ctrl_bus_BaseAddress, XFM_SYNTH_CTRL_BUS_ADDR_SUSTAINAMPLITUDE_DATA);
+    return Data;
+}
+
+void XFm_synth_Set_sustainDuration(XFm_synth *InstancePtr, u32 Data) {
+    Xil_AssertVoid(InstancePtr != NULL);
+    Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    XFm_synth_WriteReg(InstancePtr->Ctrl_bus_BaseAddress, XFM_SYNTH_CTRL_BUS_ADDR_SUSTAINDURATION_DATA, Data);
+}
+
+u32 XFm_synth_Get_sustainDuration(XFm_synth *InstancePtr) {
+    u32 Data;
+
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    Data = XFm_synth_ReadReg(InstancePtr->Ctrl_bus_BaseAddress, XFM_SYNTH_CTRL_BUS_ADDR_SUSTAINDURATION_DATA);
+    return Data;
+}
+
+void XFm_synth_Set_releaseDuration(XFm_synth *InstancePtr, u32 Data) {
+    Xil_AssertVoid(InstancePtr != NULL);
+    Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    XFm_synth_WriteReg(InstancePtr->Ctrl_bus_BaseAddress, XFM_SYNTH_CTRL_BUS_ADDR_RELEASEDURATION_DATA, Data);
+}
+
+u32 XFm_synth_Get_releaseDuration(XFm_synth *InstancePtr) {
+    u32 Data;
+
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    Data = XFm_synth_ReadReg(InstancePtr->Ctrl_bus_BaseAddress, XFM_SYNTH_CTRL_BUS_ADDR_RELEASEDURATION_DATA);
     return Data;
 }
 

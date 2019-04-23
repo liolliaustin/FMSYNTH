@@ -21,16 +21,6 @@ void FM_Synth::thread_hdltv_gen() {
         mHdltvoutHandle << mComma << "{"  <<  " \"result_V_TDATA\" :  \"" << result_V_TDATA.read() << "\" ";
         mHdltvoutHandle << " , " <<  " \"result_V_TVALID\" :  \"" << result_V_TVALID.read() << "\" ";
         mHdltvinHandle << " , " <<  " \"result_V_TREADY\" :  \"" << result_V_TREADY.read() << "\" ";
-        mHdltvoutHandle << " , " <<  " \"newNote_V_TDATA\" :  \"" << newNote_V_TDATA.read() << "\" ";
-        mHdltvoutHandle << " , " <<  " \"newNote_V_TVALID\" :  \"" << newNote_V_TVALID.read() << "\" ";
-        mHdltvinHandle << " , " <<  " \"newNote_V_TREADY\" :  \"" << newNote_V_TREADY.read() << "\" ";
-        mHdltvinHandle << " , " <<  " \"press\" :  \"" << press.read() << "\" ";
-        mHdltvinHandle << " , " <<  " \"attackMaximum\" :  \"" << attackMaximum.read() << "\" ";
-        mHdltvinHandle << " , " <<  " \"attackDuration\" :  \"" << attackDuration.read() << "\" ";
-        mHdltvinHandle << " , " <<  " \"decayDuration\" :  \"" << decayDuration.read() << "\" ";
-        mHdltvinHandle << " , " <<  " \"sustainAmplitude\" :  \"" << sustainAmplitude.read() << "\" ";
-        mHdltvinHandle << " , " <<  " \"sustainDuration\" :  \"" << sustainDuration.read() << "\" ";
-        mHdltvinHandle << " , " <<  " \"releaseDuration\" :  \"" << releaseDuration.read() << "\" ";
         mHdltvinHandle << " , " <<  " \"s_axi_CTRL_BUS_AWVALID\" :  \"" << s_axi_CTRL_BUS_AWVALID.read() << "\" ";
         mHdltvoutHandle << " , " <<  " \"s_axi_CTRL_BUS_AWREADY\" :  \"" << s_axi_CTRL_BUS_AWREADY.read() << "\" ";
         mHdltvinHandle << " , " <<  " \"s_axi_CTRL_BUS_AWADDR\" :  \"" << s_axi_CTRL_BUS_AWADDR.read() << "\" ";

@@ -3,10 +3,10 @@
 <!--                                                         -->
 <!-- Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.   -->
 
-<Project Version="7" Minor="20" Path="/home/austin/FMgit/FMSYNTH/HLS_Proj/HLS_FMSYNTH/solution1/impl/ip/tmp.xpr">
+<Project Version="7" Minor="20" Path="/root/repo/ECE1373_GhostSynth/modules/FMSYNTH/HLS_Proj/HLS_FMSYNTH/solution1/impl/ip/tmp.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
-    <Option Name="Id" Val="7b4773cbfbaf43828bdb207d93941cc4"/>
+    <Option Name="Id" Val="6991ed3dfabe483f80fac145d0e61442"/>
     <Option Name="Part" Val="xc7vx485tffg1157-1"/>
     <Option Name="CompiledLibDir" Val="$PCACHEDIR/compile_simlib"/>
     <Option Name="CompiledLibDirXSim" Val=""/>
@@ -52,7 +52,21 @@
   <FileSets Version="1" Minor="31">
     <FileSet Name="sources_1" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1">
       <Filter Type="Srcs"/>
-      <File Path="$PSRCDIR/sources_1/ip/FM_Synth_ap_fadd_2_full_dsp_32/FM_Synth_ap_fadd_2_full_dsp_32.xci">
+      <File Path="$PSRCDIR/sources_1/ip/FM_Synth_ap_fpext_0_no_dsp_32/FM_Synth_ap_fpext_0_no_dsp_32.xci">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/ip/FM_Synth_ap_fsub_2_full_dsp_32/FM_Synth_ap_fsub_2_full_dsp_32.xci">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/ip/FM_Synth_ap_fdiv_10_no_dsp_32/FM_Synth_ap_fdiv_10_no_dsp_32.xci">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -73,7 +87,7 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/ip/FM_Synth_ap_fpext_0_no_dsp_32/FM_Synth_ap_fpext_0_no_dsp_32.xci">
+      <File Path="$PSRCDIR/sources_1/ip/FM_Synth_ap_fadd_2_full_dsp_32/FM_Synth_ap_fadd_2_full_dsp_32.xci">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>

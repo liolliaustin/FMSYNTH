@@ -8,7 +8,7 @@
 `timescale 1ns/1ps
 module FM_Synth_CTRL_BUS_s_axi
 #(parameter
-    C_S_AXI_ADDR_WIDTH = 6,
+    C_S_AXI_ADDR_WIDTH = 7,
     C_S_AXI_DATA_WIDTH = 32
 )(
     // axi4 lite slave signals
@@ -33,60 +33,102 @@ module FM_Synth_CTRL_BUS_s_axi
     output wire                          RVALID,
     input  wire                          RREADY,
     // user signals
+    output wire [31:0]                   press,
     output wire [31:0]                   modulator_wave,
     output wire [31:0]                   modulator_phase,
     output wire [31:0]                   scale_factor,
     output wire [31:0]                   carrier_wave,
     output wire [31:0]                   carrier_phase,
-    output wire [31:0]                   sync
+    output wire [31:0]                   user_writing,
+    output wire [31:0]                   attackMaximum,
+    output wire [31:0]                   attackDuration,
+    output wire [31:0]                   decayDuration,
+    output wire [31:0]                   sustainAmplitude,
+    output wire [31:0]                   sustainDuration,
+    output wire [31:0]                   releaseDuration
 );
 //------------------------Address Info-------------------
 // 0x00 : reserved
 // 0x04 : reserved
 // 0x08 : reserved
 // 0x0c : reserved
-// 0x10 : Data signal of modulator_wave
-//        bit 31~0 - modulator_wave[31:0] (Read/Write)
+// 0x10 : Data signal of press
+//        bit 31~0 - press[31:0] (Read/Write)
 // 0x14 : reserved
-// 0x18 : Data signal of modulator_phase
-//        bit 31~0 - modulator_phase[31:0] (Read/Write)
+// 0x18 : Data signal of modulator_wave
+//        bit 31~0 - modulator_wave[31:0] (Read/Write)
 // 0x1c : reserved
-// 0x20 : Data signal of scale_factor
-//        bit 31~0 - scale_factor[31:0] (Read/Write)
+// 0x20 : Data signal of modulator_phase
+//        bit 31~0 - modulator_phase[31:0] (Read/Write)
 // 0x24 : reserved
-// 0x28 : Data signal of carrier_wave
-//        bit 31~0 - carrier_wave[31:0] (Read/Write)
+// 0x28 : Data signal of scale_factor
+//        bit 31~0 - scale_factor[31:0] (Read/Write)
 // 0x2c : reserved
-// 0x30 : Data signal of carrier_phase
-//        bit 31~0 - carrier_phase[31:0] (Read/Write)
+// 0x30 : Data signal of carrier_wave
+//        bit 31~0 - carrier_wave[31:0] (Read/Write)
 // 0x34 : reserved
-// 0x38 : Data signal of sync
-//        bit 31~0 - sync[31:0] (Read/Write)
+// 0x38 : Data signal of carrier_phase
+//        bit 31~0 - carrier_phase[31:0] (Read/Write)
 // 0x3c : reserved
+// 0x40 : Data signal of user_writing
+//        bit 31~0 - user_writing[31:0] (Read/Write)
+// 0x44 : reserved
+// 0x48 : Data signal of attackMaximum
+//        bit 31~0 - attackMaximum[31:0] (Read/Write)
+// 0x4c : reserved
+// 0x50 : Data signal of attackDuration
+//        bit 31~0 - attackDuration[31:0] (Read/Write)
+// 0x54 : reserved
+// 0x58 : Data signal of decayDuration
+//        bit 31~0 - decayDuration[31:0] (Read/Write)
+// 0x5c : reserved
+// 0x60 : Data signal of sustainAmplitude
+//        bit 31~0 - sustainAmplitude[31:0] (Read/Write)
+// 0x64 : reserved
+// 0x68 : Data signal of sustainDuration
+//        bit 31~0 - sustainDuration[31:0] (Read/Write)
+// 0x6c : reserved
+// 0x70 : Data signal of releaseDuration
+//        bit 31~0 - releaseDuration[31:0] (Read/Write)
+// 0x74 : reserved
 // (SC = Self Clear, COR = Clear on Read, TOW = Toggle on Write, COH = Clear on Handshake)
 
 //------------------------Parameter----------------------
 localparam
-    ADDR_MODULATOR_WAVE_DATA_0  = 6'h10,
-    ADDR_MODULATOR_WAVE_CTRL    = 6'h14,
-    ADDR_MODULATOR_PHASE_DATA_0 = 6'h18,
-    ADDR_MODULATOR_PHASE_CTRL   = 6'h1c,
-    ADDR_SCALE_FACTOR_DATA_0    = 6'h20,
-    ADDR_SCALE_FACTOR_CTRL      = 6'h24,
-    ADDR_CARRIER_WAVE_DATA_0    = 6'h28,
-    ADDR_CARRIER_WAVE_CTRL      = 6'h2c,
-    ADDR_CARRIER_PHASE_DATA_0   = 6'h30,
-    ADDR_CARRIER_PHASE_CTRL     = 6'h34,
-    ADDR_SYNC_DATA_0            = 6'h38,
-    ADDR_SYNC_CTRL              = 6'h3c,
-    WRIDLE                      = 2'd0,
-    WRDATA                      = 2'd1,
-    WRRESP                      = 2'd2,
-    WRRESET                     = 2'd3,
-    RDIDLE                      = 2'd0,
-    RDDATA                      = 2'd1,
-    RDRESET                     = 2'd2,
-    ADDR_BITS         = 6;
+    ADDR_PRESS_DATA_0            = 7'h10,
+    ADDR_PRESS_CTRL              = 7'h14,
+    ADDR_MODULATOR_WAVE_DATA_0   = 7'h18,
+    ADDR_MODULATOR_WAVE_CTRL     = 7'h1c,
+    ADDR_MODULATOR_PHASE_DATA_0  = 7'h20,
+    ADDR_MODULATOR_PHASE_CTRL    = 7'h24,
+    ADDR_SCALE_FACTOR_DATA_0     = 7'h28,
+    ADDR_SCALE_FACTOR_CTRL       = 7'h2c,
+    ADDR_CARRIER_WAVE_DATA_0     = 7'h30,
+    ADDR_CARRIER_WAVE_CTRL       = 7'h34,
+    ADDR_CARRIER_PHASE_DATA_0    = 7'h38,
+    ADDR_CARRIER_PHASE_CTRL      = 7'h3c,
+    ADDR_USER_WRITING_DATA_0     = 7'h40,
+    ADDR_USER_WRITING_CTRL       = 7'h44,
+    ADDR_ATTACKMAXIMUM_DATA_0    = 7'h48,
+    ADDR_ATTACKMAXIMUM_CTRL      = 7'h4c,
+    ADDR_ATTACKDURATION_DATA_0   = 7'h50,
+    ADDR_ATTACKDURATION_CTRL     = 7'h54,
+    ADDR_DECAYDURATION_DATA_0    = 7'h58,
+    ADDR_DECAYDURATION_CTRL      = 7'h5c,
+    ADDR_SUSTAINAMPLITUDE_DATA_0 = 7'h60,
+    ADDR_SUSTAINAMPLITUDE_CTRL   = 7'h64,
+    ADDR_SUSTAINDURATION_DATA_0  = 7'h68,
+    ADDR_SUSTAINDURATION_CTRL    = 7'h6c,
+    ADDR_RELEASEDURATION_DATA_0  = 7'h70,
+    ADDR_RELEASEDURATION_CTRL    = 7'h74,
+    WRIDLE                       = 2'd0,
+    WRDATA                       = 2'd1,
+    WRRESP                       = 2'd2,
+    WRRESET                      = 2'd3,
+    RDIDLE                       = 2'd0,
+    RDDATA                       = 2'd1,
+    RDRESET                      = 2'd2,
+    ADDR_BITS         = 7;
 
 //------------------------Local signal-------------------
     reg  [1:0]                    wstate = WRRESET;
@@ -101,12 +143,19 @@ localparam
     wire                          ar_hs;
     wire [ADDR_BITS-1:0]          raddr;
     // internal registers
+    reg  [31:0]                   int_press = 'b0;
     reg  [31:0]                   int_modulator_wave = 'b0;
     reg  [31:0]                   int_modulator_phase = 'b0;
     reg  [31:0]                   int_scale_factor = 'b0;
     reg  [31:0]                   int_carrier_wave = 'b0;
     reg  [31:0]                   int_carrier_phase = 'b0;
-    reg  [31:0]                   int_sync = 'b0;
+    reg  [31:0]                   int_user_writing = 'b0;
+    reg  [31:0]                   int_attackMaximum = 'b0;
+    reg  [31:0]                   int_attackDuration = 'b0;
+    reg  [31:0]                   int_decayDuration = 'b0;
+    reg  [31:0]                   int_sustainAmplitude = 'b0;
+    reg  [31:0]                   int_sustainDuration = 'b0;
+    reg  [31:0]                   int_releaseDuration = 'b0;
 
 //------------------------Instantiation------------------
 
@@ -198,6 +247,9 @@ always @(posedge ACLK) begin
         if (ar_hs) begin
             rdata <= 1'b0;
             case (raddr)
+                ADDR_PRESS_DATA_0: begin
+                    rdata <= int_press[31:0];
+                end
                 ADDR_MODULATOR_WAVE_DATA_0: begin
                     rdata <= int_modulator_wave[31:0];
                 end
@@ -213,8 +265,26 @@ always @(posedge ACLK) begin
                 ADDR_CARRIER_PHASE_DATA_0: begin
                     rdata <= int_carrier_phase[31:0];
                 end
-                ADDR_SYNC_DATA_0: begin
-                    rdata <= int_sync[31:0];
+                ADDR_USER_WRITING_DATA_0: begin
+                    rdata <= int_user_writing[31:0];
+                end
+                ADDR_ATTACKMAXIMUM_DATA_0: begin
+                    rdata <= int_attackMaximum[31:0];
+                end
+                ADDR_ATTACKDURATION_DATA_0: begin
+                    rdata <= int_attackDuration[31:0];
+                end
+                ADDR_DECAYDURATION_DATA_0: begin
+                    rdata <= int_decayDuration[31:0];
+                end
+                ADDR_SUSTAINAMPLITUDE_DATA_0: begin
+                    rdata <= int_sustainAmplitude[31:0];
+                end
+                ADDR_SUSTAINDURATION_DATA_0: begin
+                    rdata <= int_sustainDuration[31:0];
+                end
+                ADDR_RELEASEDURATION_DATA_0: begin
+                    rdata <= int_releaseDuration[31:0];
                 end
             endcase
         end
@@ -223,12 +293,29 @@ end
 
 
 //------------------------Register logic-----------------
-assign modulator_wave  = int_modulator_wave;
-assign modulator_phase = int_modulator_phase;
-assign scale_factor    = int_scale_factor;
-assign carrier_wave    = int_carrier_wave;
-assign carrier_phase   = int_carrier_phase;
-assign sync            = int_sync;
+assign press            = int_press;
+assign modulator_wave   = int_modulator_wave;
+assign modulator_phase  = int_modulator_phase;
+assign scale_factor     = int_scale_factor;
+assign carrier_wave     = int_carrier_wave;
+assign carrier_phase    = int_carrier_phase;
+assign user_writing     = int_user_writing;
+assign attackMaximum    = int_attackMaximum;
+assign attackDuration   = int_attackDuration;
+assign decayDuration    = int_decayDuration;
+assign sustainAmplitude = int_sustainAmplitude;
+assign sustainDuration  = int_sustainDuration;
+assign releaseDuration  = int_releaseDuration;
+// int_press[31:0]
+always @(posedge ACLK) begin
+    if (ARESET)
+        int_press[31:0] <= 0;
+    else if (ACLK_EN) begin
+        if (w_hs && waddr == ADDR_PRESS_DATA_0)
+            int_press[31:0] <= (WDATA[31:0] & wmask) | (int_press[31:0] & ~wmask);
+    end
+end
+
 // int_modulator_wave[31:0]
 always @(posedge ACLK) begin
     if (ARESET)
@@ -279,13 +366,73 @@ always @(posedge ACLK) begin
     end
 end
 
-// int_sync[31:0]
+// int_user_writing[31:0]
 always @(posedge ACLK) begin
     if (ARESET)
-        int_sync[31:0] <= 0;
+        int_user_writing[31:0] <= 0;
     else if (ACLK_EN) begin
-        if (w_hs && waddr == ADDR_SYNC_DATA_0)
-            int_sync[31:0] <= (WDATA[31:0] & wmask) | (int_sync[31:0] & ~wmask);
+        if (w_hs && waddr == ADDR_USER_WRITING_DATA_0)
+            int_user_writing[31:0] <= (WDATA[31:0] & wmask) | (int_user_writing[31:0] & ~wmask);
+    end
+end
+
+// int_attackMaximum[31:0]
+always @(posedge ACLK) begin
+    if (ARESET)
+        int_attackMaximum[31:0] <= 0;
+    else if (ACLK_EN) begin
+        if (w_hs && waddr == ADDR_ATTACKMAXIMUM_DATA_0)
+            int_attackMaximum[31:0] <= (WDATA[31:0] & wmask) | (int_attackMaximum[31:0] & ~wmask);
+    end
+end
+
+// int_attackDuration[31:0]
+always @(posedge ACLK) begin
+    if (ARESET)
+        int_attackDuration[31:0] <= 0;
+    else if (ACLK_EN) begin
+        if (w_hs && waddr == ADDR_ATTACKDURATION_DATA_0)
+            int_attackDuration[31:0] <= (WDATA[31:0] & wmask) | (int_attackDuration[31:0] & ~wmask);
+    end
+end
+
+// int_decayDuration[31:0]
+always @(posedge ACLK) begin
+    if (ARESET)
+        int_decayDuration[31:0] <= 0;
+    else if (ACLK_EN) begin
+        if (w_hs && waddr == ADDR_DECAYDURATION_DATA_0)
+            int_decayDuration[31:0] <= (WDATA[31:0] & wmask) | (int_decayDuration[31:0] & ~wmask);
+    end
+end
+
+// int_sustainAmplitude[31:0]
+always @(posedge ACLK) begin
+    if (ARESET)
+        int_sustainAmplitude[31:0] <= 0;
+    else if (ACLK_EN) begin
+        if (w_hs && waddr == ADDR_SUSTAINAMPLITUDE_DATA_0)
+            int_sustainAmplitude[31:0] <= (WDATA[31:0] & wmask) | (int_sustainAmplitude[31:0] & ~wmask);
+    end
+end
+
+// int_sustainDuration[31:0]
+always @(posedge ACLK) begin
+    if (ARESET)
+        int_sustainDuration[31:0] <= 0;
+    else if (ACLK_EN) begin
+        if (w_hs && waddr == ADDR_SUSTAINDURATION_DATA_0)
+            int_sustainDuration[31:0] <= (WDATA[31:0] & wmask) | (int_sustainDuration[31:0] & ~wmask);
+    end
+end
+
+// int_releaseDuration[31:0]
+always @(posedge ACLK) begin
+    if (ARESET)
+        int_releaseDuration[31:0] <= 0;
+    else if (ACLK_EN) begin
+        if (w_hs && waddr == ADDR_RELEASEDURATION_DATA_0)
+            int_releaseDuration[31:0] <= (WDATA[31:0] & wmask) | (int_releaseDuration[31:0] & ~wmask);
     end
 end
 

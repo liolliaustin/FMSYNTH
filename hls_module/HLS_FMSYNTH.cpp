@@ -62,7 +62,7 @@ void FM_Synth(
 	float scale_factor,
 	int carrier_wave, 
 	float carrier_phase,
-	int sync,
+	int user_writing,
 	int attackMaximum, 
 	int attackDuration,
 	int decayDuration, 
@@ -71,6 +71,7 @@ void FM_Synth(
 	int releaseDuration
 
 ){
+#pragma HLS PIPELINE
 #pragma HLS INTERFACE s_axilite port=attackMaximum bundle=CTRL_BUS
 #pragma HLS INTERFACE s_axilite port=attackDuration bundle=CTRL_BUS
 #pragma HLS INTERFACE s_axilite port=decayDuration bundle=CTRL_BUS
@@ -79,42 +80,42 @@ void FM_Synth(
 #pragma HLS INTERFACE s_axilite port=releaseDuration bundle=CTRL_BUS
 #pragma HLS INTERFACE s_axilite port=press bundle=CTRL_BUS
 
-#pragma HLS PIPELINE II=1
 #pragma HLS INTERFACE ap_ctrl_none port=return
 #pragma HLS INTERFACE s_axilite port=modulator_wave bundle=CTRL_BUS
 #pragma HLS INTERFACE s_axilite port=modulator_phase bundle=CTRL_BUS
 #pragma HLS INTERFACE s_axilite port=scale_factor bundle=CTRL_BUS
 #pragma HLS INTERFACE s_axilite port=carrier_wave bundle=CTRL_BUS
 #pragma HLS INTERFACE s_axilite port=carrier_phase bundle=CTRL_BUS
-#pragma HLS INTERFACE s_axilite port=sync bundle=CTRL_BUS
+#pragma HLS INTERFACE s_axilite port=user_writing bundle=CTRL_BUS
 
 #pragma HLS INTERFACE axis register both port=result
 //#pragma HLS INTERFACE axis register both port=newNote
 
 	static int position = 0;
-	static int change = 1;
+	static int change = 0;
 
-	static float * carrier_wave_values;
-	static float * modulator_wave_values;
-	static float modulator_conversion;
-	static float carrier_conversion;
+	static float * carrier_wave_values = notes[0];
+	static float * modulator_wave_values = notes[0];
+	static float modulator_conversion = Conversion[0];
+	static float carrier_conversion = Conversion[0];
 
-	static int mod_octave;
-	static int car_octave;
-	static int mod_size;
-	static int car_size;
+	static int mod_octave = 1;
+	static int car_octave = 1;
+	static int mod_size = sizes[0];
+	static int car_size = sizes[0];
 
-	static float attackSlope;
-	static float decaySlope;
-	static float releaseSlope;
+	static float attackSlope = 0.0f;
+	static float decaySlope = 0.0f;
+	static float releaseSlope = 0.0f;
 
 
-	if (sync == 0){
+	if (user_writing){
 		change = 1;
 		return;
 	}
 
 	if (change == 1){
+		change = 0;
 
 		mod_octave = 1 + modulator_wave/12;
 		car_octave = 1 + carrier_wave/12;
@@ -163,10 +164,6 @@ void FM_Synth(
 	//printf("result: %f\n", amplitude*carrier_wave_values[carRead]);
 
 	position++;
-
-	change = 0;
-
-
 }
 
 //Duration variables are the time relative to 0 that portion of the envelope no longer used

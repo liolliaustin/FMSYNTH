@@ -11,7 +11,7 @@ use IEEE.NUMERIC_STD.all;
 
 entity FM_Synth_CTRL_BUS_s_axi is
 generic (
-    C_S_AXI_ADDR_WIDTH    : INTEGER := 6;
+    C_S_AXI_ADDR_WIDTH    : INTEGER := 7;
     C_S_AXI_DATA_WIDTH    : INTEGER := 32);
 port (
     -- axi4 lite slave signals
@@ -36,12 +36,19 @@ port (
     RVALID                :out  STD_LOGIC;
     RREADY                :in   STD_LOGIC;
     -- user signals
+    press                 :out  STD_LOGIC_VECTOR(31 downto 0);
     modulator_wave        :out  STD_LOGIC_VECTOR(31 downto 0);
     modulator_phase       :out  STD_LOGIC_VECTOR(31 downto 0);
     scale_factor          :out  STD_LOGIC_VECTOR(31 downto 0);
     carrier_wave          :out  STD_LOGIC_VECTOR(31 downto 0);
     carrier_phase         :out  STD_LOGIC_VECTOR(31 downto 0);
-    sync                  :out  STD_LOGIC_VECTOR(31 downto 0)
+    user_writing          :out  STD_LOGIC_VECTOR(31 downto 0);
+    attackMaximum         :out  STD_LOGIC_VECTOR(31 downto 0);
+    attackDuration        :out  STD_LOGIC_VECTOR(31 downto 0);
+    decayDuration         :out  STD_LOGIC_VECTOR(31 downto 0);
+    sustainAmplitude      :out  STD_LOGIC_VECTOR(31 downto 0);
+    sustainDuration       :out  STD_LOGIC_VECTOR(31 downto 0);
+    releaseDuration       :out  STD_LOGIC_VECTOR(31 downto 0)
 );
 end entity FM_Synth_CTRL_BUS_s_axi;
 
@@ -50,24 +57,45 @@ end entity FM_Synth_CTRL_BUS_s_axi;
 -- 0x04 : reserved
 -- 0x08 : reserved
 -- 0x0c : reserved
--- 0x10 : Data signal of modulator_wave
---        bit 31~0 - modulator_wave[31:0] (Read/Write)
+-- 0x10 : Data signal of press
+--        bit 31~0 - press[31:0] (Read/Write)
 -- 0x14 : reserved
--- 0x18 : Data signal of modulator_phase
---        bit 31~0 - modulator_phase[31:0] (Read/Write)
+-- 0x18 : Data signal of modulator_wave
+--        bit 31~0 - modulator_wave[31:0] (Read/Write)
 -- 0x1c : reserved
--- 0x20 : Data signal of scale_factor
---        bit 31~0 - scale_factor[31:0] (Read/Write)
+-- 0x20 : Data signal of modulator_phase
+--        bit 31~0 - modulator_phase[31:0] (Read/Write)
 -- 0x24 : reserved
--- 0x28 : Data signal of carrier_wave
---        bit 31~0 - carrier_wave[31:0] (Read/Write)
+-- 0x28 : Data signal of scale_factor
+--        bit 31~0 - scale_factor[31:0] (Read/Write)
 -- 0x2c : reserved
--- 0x30 : Data signal of carrier_phase
---        bit 31~0 - carrier_phase[31:0] (Read/Write)
+-- 0x30 : Data signal of carrier_wave
+--        bit 31~0 - carrier_wave[31:0] (Read/Write)
 -- 0x34 : reserved
--- 0x38 : Data signal of sync
---        bit 31~0 - sync[31:0] (Read/Write)
+-- 0x38 : Data signal of carrier_phase
+--        bit 31~0 - carrier_phase[31:0] (Read/Write)
 -- 0x3c : reserved
+-- 0x40 : Data signal of user_writing
+--        bit 31~0 - user_writing[31:0] (Read/Write)
+-- 0x44 : reserved
+-- 0x48 : Data signal of attackMaximum
+--        bit 31~0 - attackMaximum[31:0] (Read/Write)
+-- 0x4c : reserved
+-- 0x50 : Data signal of attackDuration
+--        bit 31~0 - attackDuration[31:0] (Read/Write)
+-- 0x54 : reserved
+-- 0x58 : Data signal of decayDuration
+--        bit 31~0 - decayDuration[31:0] (Read/Write)
+-- 0x5c : reserved
+-- 0x60 : Data signal of sustainAmplitude
+--        bit 31~0 - sustainAmplitude[31:0] (Read/Write)
+-- 0x64 : reserved
+-- 0x68 : Data signal of sustainDuration
+--        bit 31~0 - sustainDuration[31:0] (Read/Write)
+-- 0x6c : reserved
+-- 0x70 : Data signal of releaseDuration
+--        bit 31~0 - releaseDuration[31:0] (Read/Write)
+-- 0x74 : reserved
 -- (SC = Self Clear, COR = Clear on Read, TOW = Toggle on Write, COH = Clear on Handshake)
 
 architecture behave of FM_Synth_CTRL_BUS_s_axi is
@@ -75,19 +103,33 @@ architecture behave of FM_Synth_CTRL_BUS_s_axi is
     signal wstate  : states := wrreset;
     signal rstate  : states := rdreset;
     signal wnext, rnext: states;
-    constant ADDR_MODULATOR_WAVE_DATA_0  : INTEGER := 16#10#;
-    constant ADDR_MODULATOR_WAVE_CTRL    : INTEGER := 16#14#;
-    constant ADDR_MODULATOR_PHASE_DATA_0 : INTEGER := 16#18#;
-    constant ADDR_MODULATOR_PHASE_CTRL   : INTEGER := 16#1c#;
-    constant ADDR_SCALE_FACTOR_DATA_0    : INTEGER := 16#20#;
-    constant ADDR_SCALE_FACTOR_CTRL      : INTEGER := 16#24#;
-    constant ADDR_CARRIER_WAVE_DATA_0    : INTEGER := 16#28#;
-    constant ADDR_CARRIER_WAVE_CTRL      : INTEGER := 16#2c#;
-    constant ADDR_CARRIER_PHASE_DATA_0   : INTEGER := 16#30#;
-    constant ADDR_CARRIER_PHASE_CTRL     : INTEGER := 16#34#;
-    constant ADDR_SYNC_DATA_0            : INTEGER := 16#38#;
-    constant ADDR_SYNC_CTRL              : INTEGER := 16#3c#;
-    constant ADDR_BITS         : INTEGER := 6;
+    constant ADDR_PRESS_DATA_0            : INTEGER := 16#10#;
+    constant ADDR_PRESS_CTRL              : INTEGER := 16#14#;
+    constant ADDR_MODULATOR_WAVE_DATA_0   : INTEGER := 16#18#;
+    constant ADDR_MODULATOR_WAVE_CTRL     : INTEGER := 16#1c#;
+    constant ADDR_MODULATOR_PHASE_DATA_0  : INTEGER := 16#20#;
+    constant ADDR_MODULATOR_PHASE_CTRL    : INTEGER := 16#24#;
+    constant ADDR_SCALE_FACTOR_DATA_0     : INTEGER := 16#28#;
+    constant ADDR_SCALE_FACTOR_CTRL       : INTEGER := 16#2c#;
+    constant ADDR_CARRIER_WAVE_DATA_0     : INTEGER := 16#30#;
+    constant ADDR_CARRIER_WAVE_CTRL       : INTEGER := 16#34#;
+    constant ADDR_CARRIER_PHASE_DATA_0    : INTEGER := 16#38#;
+    constant ADDR_CARRIER_PHASE_CTRL      : INTEGER := 16#3c#;
+    constant ADDR_USER_WRITING_DATA_0     : INTEGER := 16#40#;
+    constant ADDR_USER_WRITING_CTRL       : INTEGER := 16#44#;
+    constant ADDR_ATTACKMAXIMUM_DATA_0    : INTEGER := 16#48#;
+    constant ADDR_ATTACKMAXIMUM_CTRL      : INTEGER := 16#4c#;
+    constant ADDR_ATTACKDURATION_DATA_0   : INTEGER := 16#50#;
+    constant ADDR_ATTACKDURATION_CTRL     : INTEGER := 16#54#;
+    constant ADDR_DECAYDURATION_DATA_0    : INTEGER := 16#58#;
+    constant ADDR_DECAYDURATION_CTRL      : INTEGER := 16#5c#;
+    constant ADDR_SUSTAINAMPLITUDE_DATA_0 : INTEGER := 16#60#;
+    constant ADDR_SUSTAINAMPLITUDE_CTRL   : INTEGER := 16#64#;
+    constant ADDR_SUSTAINDURATION_DATA_0  : INTEGER := 16#68#;
+    constant ADDR_SUSTAINDURATION_CTRL    : INTEGER := 16#6c#;
+    constant ADDR_RELEASEDURATION_DATA_0  : INTEGER := 16#70#;
+    constant ADDR_RELEASEDURATION_CTRL    : INTEGER := 16#74#;
+    constant ADDR_BITS         : INTEGER := 7;
 
     signal waddr               : UNSIGNED(ADDR_BITS-1 downto 0);
     signal wmask               : UNSIGNED(31 downto 0);
@@ -101,12 +143,19 @@ architecture behave of FM_Synth_CTRL_BUS_s_axi is
     signal ARREADY_t           : STD_LOGIC;
     signal RVALID_t            : STD_LOGIC;
     -- internal registers
+    signal int_press           : UNSIGNED(31 downto 0) := (others => '0');
     signal int_modulator_wave  : UNSIGNED(31 downto 0) := (others => '0');
     signal int_modulator_phase : UNSIGNED(31 downto 0) := (others => '0');
     signal int_scale_factor    : UNSIGNED(31 downto 0) := (others => '0');
     signal int_carrier_wave    : UNSIGNED(31 downto 0) := (others => '0');
     signal int_carrier_phase   : UNSIGNED(31 downto 0) := (others => '0');
-    signal int_sync            : UNSIGNED(31 downto 0) := (others => '0');
+    signal int_user_writing    : UNSIGNED(31 downto 0) := (others => '0');
+    signal int_attackMaximum   : UNSIGNED(31 downto 0) := (others => '0');
+    signal int_attackDuration  : UNSIGNED(31 downto 0) := (others => '0');
+    signal int_decayDuration   : UNSIGNED(31 downto 0) := (others => '0');
+    signal int_sustainAmplitude : UNSIGNED(31 downto 0) := (others => '0');
+    signal int_sustainDuration : UNSIGNED(31 downto 0) := (others => '0');
+    signal int_releaseDuration : UNSIGNED(31 downto 0) := (others => '0');
 
 
 begin
@@ -220,6 +269,8 @@ begin
             if (ACLK_EN = '1') then
                 if (ar_hs = '1') then
                     case (TO_INTEGER(raddr)) is
+                    when ADDR_PRESS_DATA_0 =>
+                        rdata_data <= RESIZE(int_press(31 downto 0), 32);
                     when ADDR_MODULATOR_WAVE_DATA_0 =>
                         rdata_data <= RESIZE(int_modulator_wave(31 downto 0), 32);
                     when ADDR_MODULATOR_PHASE_DATA_0 =>
@@ -230,8 +281,20 @@ begin
                         rdata_data <= RESIZE(int_carrier_wave(31 downto 0), 32);
                     when ADDR_CARRIER_PHASE_DATA_0 =>
                         rdata_data <= RESIZE(int_carrier_phase(31 downto 0), 32);
-                    when ADDR_SYNC_DATA_0 =>
-                        rdata_data <= RESIZE(int_sync(31 downto 0), 32);
+                    when ADDR_USER_WRITING_DATA_0 =>
+                        rdata_data <= RESIZE(int_user_writing(31 downto 0), 32);
+                    when ADDR_ATTACKMAXIMUM_DATA_0 =>
+                        rdata_data <= RESIZE(int_attackMaximum(31 downto 0), 32);
+                    when ADDR_ATTACKDURATION_DATA_0 =>
+                        rdata_data <= RESIZE(int_attackDuration(31 downto 0), 32);
+                    when ADDR_DECAYDURATION_DATA_0 =>
+                        rdata_data <= RESIZE(int_decayDuration(31 downto 0), 32);
+                    when ADDR_SUSTAINAMPLITUDE_DATA_0 =>
+                        rdata_data <= RESIZE(int_sustainAmplitude(31 downto 0), 32);
+                    when ADDR_SUSTAINDURATION_DATA_0 =>
+                        rdata_data <= RESIZE(int_sustainDuration(31 downto 0), 32);
+                    when ADDR_RELEASEDURATION_DATA_0 =>
+                        rdata_data <= RESIZE(int_releaseDuration(31 downto 0), 32);
                     when others =>
                         rdata_data <= (others => '0');
                     end case;
@@ -241,12 +304,30 @@ begin
     end process;
 
 -- ----------------------- Register logic ----------------
+    press                <= STD_LOGIC_VECTOR(int_press);
     modulator_wave       <= STD_LOGIC_VECTOR(int_modulator_wave);
     modulator_phase      <= STD_LOGIC_VECTOR(int_modulator_phase);
     scale_factor         <= STD_LOGIC_VECTOR(int_scale_factor);
     carrier_wave         <= STD_LOGIC_VECTOR(int_carrier_wave);
     carrier_phase        <= STD_LOGIC_VECTOR(int_carrier_phase);
-    sync                 <= STD_LOGIC_VECTOR(int_sync);
+    user_writing         <= STD_LOGIC_VECTOR(int_user_writing);
+    attackMaximum        <= STD_LOGIC_VECTOR(int_attackMaximum);
+    attackDuration       <= STD_LOGIC_VECTOR(int_attackDuration);
+    decayDuration        <= STD_LOGIC_VECTOR(int_decayDuration);
+    sustainAmplitude     <= STD_LOGIC_VECTOR(int_sustainAmplitude);
+    sustainDuration      <= STD_LOGIC_VECTOR(int_sustainDuration);
+    releaseDuration      <= STD_LOGIC_VECTOR(int_releaseDuration);
+
+    process (ACLK)
+    begin
+        if (ACLK'event and ACLK = '1') then
+            if (ACLK_EN = '1') then
+                if (w_hs = '1' and waddr = ADDR_PRESS_DATA_0) then
+                    int_press(31 downto 0) <= (UNSIGNED(WDATA(31 downto 0)) and wmask(31 downto 0)) or ((not wmask(31 downto 0)) and int_press(31 downto 0));
+                end if;
+            end if;
+        end if;
+    end process;
 
     process (ACLK)
     begin
@@ -307,8 +388,74 @@ begin
     begin
         if (ACLK'event and ACLK = '1') then
             if (ACLK_EN = '1') then
-                if (w_hs = '1' and waddr = ADDR_SYNC_DATA_0) then
-                    int_sync(31 downto 0) <= (UNSIGNED(WDATA(31 downto 0)) and wmask(31 downto 0)) or ((not wmask(31 downto 0)) and int_sync(31 downto 0));
+                if (w_hs = '1' and waddr = ADDR_USER_WRITING_DATA_0) then
+                    int_user_writing(31 downto 0) <= (UNSIGNED(WDATA(31 downto 0)) and wmask(31 downto 0)) or ((not wmask(31 downto 0)) and int_user_writing(31 downto 0));
+                end if;
+            end if;
+        end if;
+    end process;
+
+    process (ACLK)
+    begin
+        if (ACLK'event and ACLK = '1') then
+            if (ACLK_EN = '1') then
+                if (w_hs = '1' and waddr = ADDR_ATTACKMAXIMUM_DATA_0) then
+                    int_attackMaximum(31 downto 0) <= (UNSIGNED(WDATA(31 downto 0)) and wmask(31 downto 0)) or ((not wmask(31 downto 0)) and int_attackMaximum(31 downto 0));
+                end if;
+            end if;
+        end if;
+    end process;
+
+    process (ACLK)
+    begin
+        if (ACLK'event and ACLK = '1') then
+            if (ACLK_EN = '1') then
+                if (w_hs = '1' and waddr = ADDR_ATTACKDURATION_DATA_0) then
+                    int_attackDuration(31 downto 0) <= (UNSIGNED(WDATA(31 downto 0)) and wmask(31 downto 0)) or ((not wmask(31 downto 0)) and int_attackDuration(31 downto 0));
+                end if;
+            end if;
+        end if;
+    end process;
+
+    process (ACLK)
+    begin
+        if (ACLK'event and ACLK = '1') then
+            if (ACLK_EN = '1') then
+                if (w_hs = '1' and waddr = ADDR_DECAYDURATION_DATA_0) then
+                    int_decayDuration(31 downto 0) <= (UNSIGNED(WDATA(31 downto 0)) and wmask(31 downto 0)) or ((not wmask(31 downto 0)) and int_decayDuration(31 downto 0));
+                end if;
+            end if;
+        end if;
+    end process;
+
+    process (ACLK)
+    begin
+        if (ACLK'event and ACLK = '1') then
+            if (ACLK_EN = '1') then
+                if (w_hs = '1' and waddr = ADDR_SUSTAINAMPLITUDE_DATA_0) then
+                    int_sustainAmplitude(31 downto 0) <= (UNSIGNED(WDATA(31 downto 0)) and wmask(31 downto 0)) or ((not wmask(31 downto 0)) and int_sustainAmplitude(31 downto 0));
+                end if;
+            end if;
+        end if;
+    end process;
+
+    process (ACLK)
+    begin
+        if (ACLK'event and ACLK = '1') then
+            if (ACLK_EN = '1') then
+                if (w_hs = '1' and waddr = ADDR_SUSTAINDURATION_DATA_0) then
+                    int_sustainDuration(31 downto 0) <= (UNSIGNED(WDATA(31 downto 0)) and wmask(31 downto 0)) or ((not wmask(31 downto 0)) and int_sustainDuration(31 downto 0));
+                end if;
+            end if;
+        end if;
+    end process;
+
+    process (ACLK)
+    begin
+        if (ACLK'event and ACLK = '1') then
+            if (ACLK_EN = '1') then
+                if (w_hs = '1' and waddr = ADDR_RELEASEDURATION_DATA_0) then
+                    int_releaseDuration(31 downto 0) <= (UNSIGNED(WDATA(31 downto 0)) and wmask(31 downto 0)) or ((not wmask(31 downto 0)) and int_releaseDuration(31 downto 0));
                 end if;
             end if;
         end if;
