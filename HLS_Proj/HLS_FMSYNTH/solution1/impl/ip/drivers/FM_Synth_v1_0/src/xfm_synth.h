@@ -81,6 +81,8 @@ int XFm_synth_Release(XFm_synth *InstancePtr);
 #endif
 
 
+void XFm_synth_Set_press(XFm_synth *InstancePtr, u32 Data);
+u32 XFm_synth_Get_press(XFm_synth *InstancePtr);
 void XFm_synth_Set_modulator_wave(XFm_synth *InstancePtr, u32 Data);
 u32 XFm_synth_Get_modulator_wave(XFm_synth *InstancePtr);
 void XFm_synth_Set_modulator_phase(XFm_synth *InstancePtr, u32 Data);
@@ -91,8 +93,20 @@ void XFm_synth_Set_carrier_wave(XFm_synth *InstancePtr, u32 Data);
 u32 XFm_synth_Get_carrier_wave(XFm_synth *InstancePtr);
 void XFm_synth_Set_carrier_phase(XFm_synth *InstancePtr, u32 Data);
 u32 XFm_synth_Get_carrier_phase(XFm_synth *InstancePtr);
-void XFm_synth_Set_sync(XFm_synth *InstancePtr, u32 Data);
-u32 XFm_synth_Get_sync(XFm_synth *InstancePtr);
+void XFm_synth_Set_user_writing(XFm_synth *InstancePtr, u32 Data);
+u32 XFm_synth_Get_user_writing(XFm_synth *InstancePtr);
+void XFm_synth_Set_attackMaximum(XFm_synth *InstancePtr, u32 Data);
+u32 XFm_synth_Get_attackMaximum(XFm_synth *InstancePtr);
+void XFm_synth_Set_attackDuration(XFm_synth *InstancePtr, u32 Data);
+u32 XFm_synth_Get_attackDuration(XFm_synth *InstancePtr);
+void XFm_synth_Set_decayDuration(XFm_synth *InstancePtr, u32 Data);
+u32 XFm_synth_Get_decayDuration(XFm_synth *InstancePtr);
+void XFm_synth_Set_sustainAmplitude(XFm_synth *InstancePtr, u32 Data);
+u32 XFm_synth_Get_sustainAmplitude(XFm_synth *InstancePtr);
+void XFm_synth_Set_sustainDuration(XFm_synth *InstancePtr, u32 Data);
+u32 XFm_synth_Get_sustainDuration(XFm_synth *InstancePtr);
+void XFm_synth_Set_releaseDuration(XFm_synth *InstancePtr, u32 Data);
+u32 XFm_synth_Get_releaseDuration(XFm_synth *InstancePtr);
 
 #ifdef __cplusplus
 }

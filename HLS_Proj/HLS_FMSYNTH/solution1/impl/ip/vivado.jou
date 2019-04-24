@@ -2,11 +2,11 @@
 # Vivado v2017.2 (64-bit)
 # SW Build 1909853 on Thu Jun 15 18:39:10 MDT 2017
 # IP Build 1909766 on Thu Jun 15 19:58:00 MDT 2017
-# Start of session at: Thu Apr  4 13:19:20 2019
-# Process ID: 12986
-# Current directory: /home/austin/FMgit/FMSYNTH/HLS_Proj/HLS_FMSYNTH/solution1/impl/ip
+# Start of session at: Tue Apr 23 14:38:57 2019
+# Process ID: 16251
+# Current directory: /root/repo/ECE1373_GhostSynth/modules/FMSYNTH/HLS_Proj/HLS_FMSYNTH/solution1/impl/ip
 # Command line: vivado -notrace -mode batch -source run_ippack.tcl
-# Log file: /home/austin/FMgit/FMSYNTH/HLS_Proj/HLS_FMSYNTH/solution1/impl/ip/vivado.log
-# Journal file: /home/austin/FMgit/FMSYNTH/HLS_Proj/HLS_FMSYNTH/solution1/impl/ip/vivado.jou
+# Log file: /root/repo/ECE1373_GhostSynth/modules/FMSYNTH/HLS_Proj/HLS_FMSYNTH/solution1/impl/ip/vivado.log
+# Journal file: /root/repo/ECE1373_GhostSynth/modules/FMSYNTH/HLS_Proj/HLS_FMSYNTH/solution1/impl/ip/vivado.jou
 #-----------------------------------------------------------
 source run_ippack.tcl -notrace

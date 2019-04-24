@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xd:acceleratorMap xmlns:xd="http://www.xilinx.com/xidane" xd:functionName="FM_Synth" xd:componentRef="FM_Synth" xd:initiationInterval="1" xd:clockPeriod="10.000000" xd:sequential="true" xd:hostMachine="64" xd:reset="control">
   <xd:arg xd:name="result" xd:originalName="result" xd:direction="out" xd:interfaceRef="result_V" xd:busTypeRef="axis" xd:dataWidth="32"/>
-  <xd:arg xd:name="newNote" xd:originalName="newNote" xd:direction="out" xd:interfaceRef="newNote_V" xd:busTypeRef="axis" xd:dataWidth="32"/>
-  <xd:arg xd:name="press" xd:originalName="press" xd:direction="in" xd:interfaceRef="press" xd:busTypeRef="register" xd:handshakeRef="ap_none" xd:dataWidth="32" xd:firstOut="150"/>
-  <xd:arg xd:name="modulator_wave" xd:originalName="modulator_wave" xd:direction="in" xd:interfaceRef="s_axi_CTRL_BUS" xd:busTypeRef="axilite" xd:dataWidth="32" xd:offset="0x10" xd:handshakeRef="ap_none"/>
-  <xd:arg xd:name="modulator_phase" xd:originalName="modulator_phase" xd:direction="in" xd:interfaceRef="s_axi_CTRL_BUS" xd:busTypeRef="axilite" xd:dataWidth="32" xd:offset="0x18" xd:handshakeRef="ap_none"/>
-  <xd:arg xd:name="scale_factor" xd:originalName="scale_factor" xd:direction="in" xd:interfaceRef="s_axi_CTRL_BUS" xd:busTypeRef="axilite" xd:dataWidth="32" xd:offset="0x20" xd:handshakeRef="ap_none"/>
-  <xd:arg xd:name="carrier_wave" xd:originalName="carrier_wave" xd:direction="in" xd:interfaceRef="s_axi_CTRL_BUS" xd:busTypeRef="axilite" xd:dataWidth="32" xd:offset="0x28" xd:handshakeRef="ap_none"/>
-  <xd:arg xd:name="carrier_phase" xd:originalName="carrier_phase" xd:direction="in" xd:interfaceRef="s_axi_CTRL_BUS" xd:busTypeRef="axilite" xd:dataWidth="32" xd:offset="0x30" xd:handshakeRef="ap_none"/>
-  <xd:arg xd:name="sync" xd:originalName="sync" xd:direction="in" xd:interfaceRef="s_axi_CTRL_BUS" xd:busTypeRef="axilite" xd:dataWidth="32" xd:offset="0x38" xd:handshakeRef="ap_none"/>
-  <xd:arg xd:name="attackMaximum" xd:originalName="attackMaximum" xd:direction="in" xd:interfaceRef="attackMaximum" xd:busTypeRef="register" xd:handshakeRef="ap_none" xd:dataWidth="32" xd:firstOut="150"/>
-  <xd:arg xd:name="attackDuration" xd:originalName="attackDuration" xd:direction="in" xd:interfaceRef="attackDuration" xd:busTypeRef="register" xd:handshakeRef="ap_none" xd:dataWidth="32" xd:firstOut="150"/>
-  <xd:arg xd:name="decayDuration" xd:originalName="decayDuration" xd:direction="in" xd:interfaceRef="decayDuration" xd:busTypeRef="register" xd:handshakeRef="ap_none" xd:dataWidth="32" xd:firstOut="150"/>
-  <xd:arg xd:name="sustainAmplitude" xd:originalName="sustainAmplitude" xd:direction="in" xd:interfaceRef="sustainAmplitude" xd:busTypeRef="register" xd:handshakeRef="ap_none" xd:dataWidth="32" xd:firstOut="150"/>
-  <xd:arg xd:name="sustainDuration" xd:originalName="sustainDuration" xd:direction="in" xd:interfaceRef="sustainDuration" xd:busTypeRef="register" xd:handshakeRef="ap_none" xd:dataWidth="32" xd:firstOut="150"/>
-  <xd:arg xd:name="releaseDuration" xd:originalName="releaseDuration" xd:direction="in" xd:interfaceRef="releaseDuration" xd:busTypeRef="register" xd:handshakeRef="ap_none" xd:dataWidth="32" xd:firstOut="150"/>
+  <xd:arg xd:name="press" xd:originalName="press" xd:direction="in" xd:interfaceRef="s_axi_CTRL_BUS" xd:busTypeRef="axilite" xd:offset="0x10" xd:handshakeRef="ap_none" xd:dataWidth="32"/>
+  <xd:arg xd:name="modulator_wave" xd:originalName="modulator_wave" xd:direction="in" xd:interfaceRef="s_axi_CTRL_BUS" xd:busTypeRef="axilite" xd:offset="0x18" xd:handshakeRef="ap_none" xd:dataWidth="32"/>
+  <xd:arg xd:name="modulator_phase" xd:originalName="modulator_phase" xd:direction="in" xd:interfaceRef="s_axi_CTRL_BUS" xd:busTypeRef="axilite" xd:offset="0x20" xd:handshakeRef="ap_none" xd:dataWidth="32"/>
+  <xd:arg xd:name="scale_factor" xd:originalName="scale_factor" xd:direction="in" xd:interfaceRef="s_axi_CTRL_BUS" xd:busTypeRef="axilite" xd:offset="0x28" xd:handshakeRef="ap_none" xd:dataWidth="32"/>
+  <xd:arg xd:name="carrier_wave" xd:originalName="carrier_wave" xd:direction="in" xd:interfaceRef="s_axi_CTRL_BUS" xd:busTypeRef="axilite" xd:offset="0x30" xd:handshakeRef="ap_none" xd:dataWidth="32"/>
+  <xd:arg xd:name="carrier_phase" xd:originalName="carrier_phase" xd:direction="in" xd:interfaceRef="s_axi_CTRL_BUS" xd:busTypeRef="axilite" xd:offset="0x38" xd:handshakeRef="ap_none" xd:dataWidth="32"/>
+  <xd:arg xd:name="user_writing" xd:originalName="user_writing" xd:direction="in" xd:interfaceRef="s_axi_CTRL_BUS" xd:busTypeRef="axilite" xd:offset="0x40" xd:handshakeRef="ap_none" xd:dataWidth="32"/>
+  <xd:arg xd:name="attackMaximum" xd:originalName="attackMaximum" xd:direction="in" xd:interfaceRef="s_axi_CTRL_BUS" xd:busTypeRef="axilite" xd:offset="0x48" xd:handshakeRef="ap_none" xd:dataWidth="32"/>
+  <xd:arg xd:name="attackDuration" xd:originalName="attackDuration" xd:direction="in" xd:interfaceRef="s_axi_CTRL_BUS" xd:busTypeRef="axilite" xd:offset="0x50" xd:handshakeRef="ap_none" xd:dataWidth="32"/>
+  <xd:arg xd:name="decayDuration" xd:originalName="decayDuration" xd:direction="in" xd:interfaceRef="s_axi_CTRL_BUS" xd:busTypeRef="axilite" xd:offset="0x58" xd:handshakeRef="ap_none" xd:dataWidth="32"/>
+  <xd:arg xd:name="sustainAmplitude" xd:originalName="sustainAmplitude" xd:direction="in" xd:interfaceRef="s_axi_CTRL_BUS" xd:busTypeRef="axilite" xd:offset="0x60" xd:handshakeRef="ap_none" xd:dataWidth="32"/>
+  <xd:arg xd:name="sustainDuration" xd:originalName="sustainDuration" xd:direction="in" xd:interfaceRef="s_axi_CTRL_BUS" xd:busTypeRef="axilite" xd:offset="0x68" xd:handshakeRef="ap_none" xd:dataWidth="32"/>
+  <xd:arg xd:name="releaseDuration" xd:originalName="releaseDuration" xd:direction="in" xd:interfaceRef="s_axi_CTRL_BUS" xd:busTypeRef="axilite" xd:offset="0x70" xd:handshakeRef="ap_none" xd:dataWidth="32"/>
   <xd:latencyEstimates xd:best-case="151" xd:worst-case="151" xd:average-case="151"/>
-  <xd:resourceEstimates xd:LUT="25082" xd:FF="28299" xd:BRAM="18" xd:DSP="57"/>
+  <xd:resourceEstimates xd:LUT="29956" xd:FF="25837" xd:BRAM="18" xd:DSP="63"/>
 </xd:acceleratorMap>

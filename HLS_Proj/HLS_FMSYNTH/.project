@@ -29,47 +29,42 @@
 		<link>
 			<name>source</name>
 			<type>2</type>
-			<location>/home/austin/FMgit/FMSYNTH/HLS_Proj/HLS_FMSYNTH/.apc/.src</location>
+			<location>/root/repo/ECE1373_GhostSynth/modules/FMSYNTH/HLS_Proj/HLS_FMSYNTH/.apc/.src</location>
 		</link>
 		<link>
 			<name>testbench</name>
 			<type>2</type>
-			<location>/home/austin/FMgit/FMSYNTH/HLS_Proj/HLS_FMSYNTH/.apc/.tb</location>
-		</link>
-		<link>
-			<name>.reference/HLS_FMSYNTH.pragma.1.cpp</name>
-			<type>1</type>
-			<location>/home/austin/FMgit/FMSYNTH/HLS_Proj/HLS_FMSYNTH/solution1/.autopilot/db/HLS_FMSYNTH.pragma.1.cpp</location>
+			<location>/root/repo/ECE1373_GhostSynth/modules/FMSYNTH/HLS_Proj/HLS_FMSYNTH/.apc/.tb</location>
 		</link>
 		<link>
 			<name>solution1/constraints</name>
 			<type>2</type>
-			<location>/home/austin/FMgit/FMSYNTH/HLS_Proj/HLS_FMSYNTH/solution1/.tcls</location>
+			<location>/root/repo/ECE1373_GhostSynth/modules/FMSYNTH/HLS_Proj/HLS_FMSYNTH/solution1/.tcls</location>
 		</link>
 		<link>
 			<name>source/HLS_FMSYNTH.cpp</name>
 			<type>1</type>
-			<location>/home/austin/FMgit/FMSYNTH/hls_module/HLS_FMSYNTH.cpp</location>
+			<location>/root/repo/ECE1373_GhostSynth/modules/FMSYNTH/hls_module/HLS_FMSYNTH.cpp</location>
 		</link>
 		<link>
 			<name>source/HLS_FMSYNTH.h</name>
 			<type>1</type>
-			<location>/home/austin/FMgit/FMSYNTH/hls_module/HLS_FMSYNTH.h</location>
+			<location>/root/repo/ECE1373_GhostSynth/modules/FMSYNTH/hls_module/HLS_FMSYNTH.h</location>
 		</link>
 		<link>
 			<name>solution1/constraints/.xml.directive</name>
 			<type>1</type>
-			<location>/home/austin/FMgit/FMSYNTH/HLS_Proj/HLS_FMSYNTH/solution1/solution1.directive</location>
+			<location>/root/repo/ECE1373_GhostSynth/modules/FMSYNTH/HLS_Proj/HLS_FMSYNTH/solution1/solution1.directive</location>
 		</link>
 		<link>
 			<name>solution1/constraints/directives.tcl</name>
 			<type>1</type>
-			<location>/home/austin/FMgit/FMSYNTH/HLS_Proj/HLS_FMSYNTH/solution1/directives.tcl</location>
+			<location>/root/repo/ECE1373_GhostSynth/modules/FMSYNTH/HLS_Proj/HLS_FMSYNTH/solution1/directives.tcl</location>
 		</link>
 		<link>
 			<name>solution1/constraints/script.tcl</name>
 			<type>1</type>
-			<location>/home/austin/FMgit/FMSYNTH/HLS_Proj/HLS_FMSYNTH/solution1/script.tcl</location>
+			<location>/root/repo/ECE1373_GhostSynth/modules/FMSYNTH/HLS_Proj/HLS_FMSYNTH/solution1/script.tcl</location>
 		</link>
 	</linkedResources>
 </projectDescription>

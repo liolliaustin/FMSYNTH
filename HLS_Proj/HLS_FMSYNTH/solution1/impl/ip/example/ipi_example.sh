@@ -6,4 +6,4 @@
 # ==============================================================
 
 
-/home/austin/Desktop/Vivado_HLS/2017.2/../../Vivado/2017.2/bin/vivado  -notrace -mode batch -source ipi_example.tcl -tclargs xc7z100ffg900-2 ../xilinx_com_hls_FM_Synth_1_0.zip
+/opt/Xilinx/Vivado_HLS/2017.2/../../Vivado/2017.2/bin/vivado  -notrace -mode batch -source ipi_example.tcl -tclargs xc7z100ffg900-2 ../xilinx_com_hls_FM_Synth_1_0.zip
