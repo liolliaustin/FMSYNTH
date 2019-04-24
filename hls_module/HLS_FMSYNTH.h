@@ -6,7 +6,6 @@
 void FM_Synth(
 
 	hls::stream<float> & result,
-	//hls::stream<float> & newNote,
 
 	int press,
 	int modulator_wave, 
@@ -14,28 +13,22 @@ void FM_Synth(
 	float scale_factor,
 	int carrier_wave, 
 	float carrier_phase,
-	int sync,
-	int attackMaximum, 
-	int attackDuration,
-	int decayDuration, 
-	int sustainAmplitude, 
-	int sustainDuration,
-	int releaseDuration
+	int sync
 
 );
 
-float envelope(
+// float envelope(
 
-	int time,
-	float attackSlope,
-	int attackDuration, 
-	float decaySlope,
-	int decayDuration, 
-	int sustainAmplitude, 
-	int sustainDuration, 
-	float releaseSlope,
-	int releaseDuration
+// 	int time,
+// 	float attackSlope,
+// 	int attackDuration, 
+// 	float decaySlope,
+// 	int decayDuration, 
+// 	int sustainAmplitude, 
+// 	int sustainDuration, 
+// 	float releaseSlope,
+// 	int releaseDuration
 
-);
+// );
 
 #endif

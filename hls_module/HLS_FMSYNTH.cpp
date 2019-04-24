@@ -54,7 +54,6 @@ int sizes[] = {437,412,389,367,347,327,309,292,275,260,245,232};
 void FM_Synth(
 
 	hls::stream<float> & result,
-	//hls::stream<float> & newNote,
 
 	int press,
 	int modulator_wave, 
@@ -62,22 +61,10 @@ void FM_Synth(
 	float scale_factor,
 	int carrier_wave, 
 	float carrier_phase,
-	int user_writing,
-	int attackMaximum, 
-	int attackDuration,
-	int decayDuration, 
-	int sustainAmplitude, 
-	int sustainDuration,
-	int releaseDuration
+	int user_writing
 
 ){
 #pragma HLS PIPELINE
-#pragma HLS INTERFACE s_axilite port=attackMaximum bundle=CTRL_BUS
-#pragma HLS INTERFACE s_axilite port=attackDuration bundle=CTRL_BUS
-#pragma HLS INTERFACE s_axilite port=decayDuration bundle=CTRL_BUS
-#pragma HLS INTERFACE s_axilite port=sustainAmplitude bundle=CTRL_BUS
-#pragma HLS INTERFACE s_axilite port=sustainDuration bundle=CTRL_BUS
-#pragma HLS INTERFACE s_axilite port=releaseDuration bundle=CTRL_BUS
 #pragma HLS INTERFACE s_axilite port=press bundle=CTRL_BUS
 
 #pragma HLS INTERFACE ap_ctrl_none port=return
@@ -89,7 +76,6 @@ void FM_Synth(
 #pragma HLS INTERFACE s_axilite port=user_writing bundle=CTRL_BUS
 
 #pragma HLS INTERFACE axis register both port=result
-//#pragma HLS INTERFACE axis register both port=newNote
 
 	static int position = 0;
 	static int change = 0;
@@ -133,18 +119,11 @@ void FM_Synth(
 
 		position = 0;
 
-		attackSlope = (float)attackMaximum/attackDuration;
-		decaySlope = (float)(sustainAmplitude - MAX_ATTACK)/(decayDuration - attackDuration);
-		releaseSlope = (float)(-1)*sustainAmplitude/(releaseDuration - sustainDuration);
 
 	}
 
-	if(press == 1){
-		sustainDuration += 1;
-		releaseDuration += 1;
-	}
 
-	float amplitude = envelope(position, attackSlope, attackDuration, decaySlope, decayDuration, sustainAmplitude, sustainDuration, releaseSlope, releaseDuration);
+	//float amplitude = envelope(position, attackSlope, attackDuration, decaySlope, decayDuration, sustainAmplitude, sustainDuration, releaseSlope, releaseDuration);
 
 
 
@@ -159,7 +138,7 @@ void FM_Synth(
 
 	//newNote << change;
 
-	result << amplitude*carrier_wave_values[carRead];
+	result << carrier_wave_values[carRead];
 
 	//printf("result: %f\n", amplitude*carrier_wave_values[carRead]);
 
@@ -173,45 +152,45 @@ void FM_Synth(
 //
 //Attack and sustain maximum values can not exceed **** in amplitude
 
-float envelope(
+// float envelope(
 
-	int time,
-	float attackSlope,
-	int attackDuration, 
-	float decaySlope,
-	int decayDuration, 
-	int sustainAmplitude, 
-	int sustainDuration, 
-	float releaseSlope,
-	int releaseDuration
+// 	int time,
+// 	float attackSlope,
+// 	int attackDuration, 
+// 	float decaySlope,
+// 	int decayDuration, 
+// 	int sustainAmplitude, 
+// 	int sustainDuration, 
+// 	float releaseSlope,
+// 	int releaseDuration
 
-){
-#pragma HLS INLINE
+// ){
+// #pragma HLS INLINE
 
-	float resultAmplitude;
+// 	float resultAmplitude;
 
-	if(time < attackDuration){
-		resultAmplitude = attackSlope*time;
-	}
+// 	if(time < attackDuration){
+// 		resultAmplitude = attackSlope*time;
+// 	}
 
-	else if(time < decayDuration){
-		resultAmplitude =  decaySlope*attackDuration + attackSlope*attackDuration - decaySlope*time;
-	}
+// 	else if(time < decayDuration){
+// 		resultAmplitude =  decaySlope*attackDuration + attackSlope*attackDuration - decaySlope*time;
+// 	}
 
-	else if( time < sustainDuration){
-		resultAmplitude = sustainAmplitude;
-	}
+// 	else if( time < sustainDuration){
+// 		resultAmplitude = sustainAmplitude;
+// 	}
 
-	else if(time < releaseDuration){
-		resultAmplitude = releaseSlope*sustainDuration + sustainAmplitude - releaseSlope*time;
-	}
+// 	else if(time < releaseDuration){
+// 		resultAmplitude = releaseSlope*sustainDuration + sustainAmplitude - releaseSlope*time;
+// 	}
 
-	else {
-		resultAmplitude = 0;
-	}
+// 	else {
+// 		resultAmplitude = 0;
+// 	}
 
-	//printf("Amplitude: %i\n", attackSlope);
+// 	//printf("Amplitude: %i\n", attackSlope);
 
-	return resultAmplitude;
-}
+// 	return resultAmplitude;
+// }
 
