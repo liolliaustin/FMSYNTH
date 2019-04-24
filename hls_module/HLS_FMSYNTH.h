@@ -17,18 +17,5 @@ void FM_Synth(
 
 );
 
-// float envelope(
-
-// 	int time,
-// 	float attackSlope,
-// 	int attackDuration, 
-// 	float decaySlope,
-// 	int decayDuration, 
-// 	int sustainAmplitude, 
-// 	int sustainDuration, 
-// 	float releaseSlope,
-// 	int releaseDuration
-
-// );
 
 #endif

@@ -1,18 +1,14 @@
-INFO: [HLS 200-10] Running '/home/austin/Desktop/Vivado_HLS/2017.2/bin/unwrapped/lnx64.o/vivado_hls'
-INFO: [HLS 200-10] For user 'austin' on host 'austin-Precision-T3600' (Linux_x86_64 version 4.15.0-46-generic) on Wed Apr 24 16:18:20 EDT 2019
-INFO: [HLS 200-10] On os Ubuntu 16.04.6 LTS
-INFO: [HLS 200-10] In directory '/home/austin/ECE1373_GhostSynth/modules/FMSYNTH/HLS_Proj'
-INFO: [HLS 200-10] Opening project '/home/austin/ECE1373_GhostSynth/modules/FMSYNTH/HLS_Proj/Synth_IP'.
-INFO: [HLS 200-10] Opening solution '/home/austin/ECE1373_GhostSynth/modules/FMSYNTH/HLS_Proj/Synth_IP/solution1'.
-INFO: [SYN 201-201] Setting up clock 'default' with a period of 10ns.
-INFO: [HLS 200-10] Setting target device to 'xc7z100ffg900-1'
-INFO: [IMPL 213-8] Exporting RTL as an IP in IP-XACT.
-
-****** Vivado v2017.2 (64-bit)
-  **** SW Build 1909853 on Thu Jun 15 18:39:10 MDT 2017
-  **** IP Build 1909766 on Thu Jun 15 19:58:00 MDT 2017
-    ** Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
-
+#-----------------------------------------------------------
+# Vivado v2017.2 (64-bit)
+# SW Build 1909853 on Thu Jun 15 18:39:10 MDT 2017
+# IP Build 1909766 on Thu Jun 15 19:58:00 MDT 2017
+# Start of session at: Wed Apr 24 16:18:22 2019
+# Process ID: 12739
+# Current directory: /home/austin/ECE1373_GhostSynth/modules/FMSYNTH/HLS_Proj/Synth_IP/solution1/impl/ip
+# Command line: vivado -notrace -mode batch -source run_ippack.tcl
+# Log file: /home/austin/ECE1373_GhostSynth/modules/FMSYNTH/HLS_Proj/Synth_IP/solution1/impl/ip/vivado.log
+# Journal file: /home/austin/ECE1373_GhostSynth/modules/FMSYNTH/HLS_Proj/Synth_IP/solution1/impl/ip/vivado.jou
+#-----------------------------------------------------------
 source run_ippack.tcl -notrace
 INFO: [IP_Flow 19-234] Refreshing IP repositories
 INFO: [IP_Flow 19-1704] No user IP repositories specified

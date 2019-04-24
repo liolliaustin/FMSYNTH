@@ -122,11 +122,6 @@ void FM_Synth(
 
 	}
 
-
-	//float amplitude = envelope(position, attackSlope, attackDuration, decaySlope, decayDuration, sustainAmplitude, sustainDuration, releaseSlope, releaseDuration);
-
-
-
 	float modWaveResult, carrierWaveResult, cartest;
 	int modRead, carRead;
 
@@ -136,61 +131,9 @@ void FM_Synth(
 
 	carRead = (int)ceil(car_octave*(scale_factor*modWaveResult*carrier_conversion + carrier_conversion*carrier_phase + position))%car_size;
 
-	//newNote << change;
-
 	result << carrier_wave_values[carRead];
-
-	//printf("result: %f\n", amplitude*carrier_wave_values[carRead]);
 
 	position++;
 }
 
-//Duration variables are the time relative to 0 that portion of the envelope no longer used
-//	ex) attackDuration = 4, decayDuration = 8, sustainDuration = 20, decayDuration = 25
-//	
-//	in actual time => decay duration is 4 samples long, sustain duration is 12 samples and decay duration is 5 samples
-//
-//Attack and sustain maximum values can not exceed **** in amplitude
-
-// float envelope(
-
-// 	int time,
-// 	float attackSlope,
-// 	int attackDuration, 
-// 	float decaySlope,
-// 	int decayDuration, 
-// 	int sustainAmplitude, 
-// 	int sustainDuration, 
-// 	float releaseSlope,
-// 	int releaseDuration
-
-// ){
-// #pragma HLS INLINE
-
-// 	float resultAmplitude;
-
-// 	if(time < attackDuration){
-// 		resultAmplitude = attackSlope*time;
-// 	}
-
-// 	else if(time < decayDuration){
-// 		resultAmplitude =  decaySlope*attackDuration + attackSlope*attackDuration - decaySlope*time;
-// 	}
-
-// 	else if( time < sustainDuration){
-// 		resultAmplitude = sustainAmplitude;
-// 	}
-
-// 	else if(time < releaseDuration){
-// 		resultAmplitude = releaseSlope*sustainDuration + sustainAmplitude - releaseSlope*time;
-// 	}
-
-// 	else {
-// 		resultAmplitude = 0;
-// 	}
-
-// 	//printf("Amplitude: %i\n", attackSlope);
-
-// 	return resultAmplitude;
-// }
 

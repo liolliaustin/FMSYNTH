@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vivadoHLSLog:LogRoot xmlns:vivadoHLSLog="www.xilinx.com/vivadoHLSLog">
+  <errorLogs>
+    <logs>
+      <synLog/>
+      <simLog/>
+      <mgLog/>
+      <packageLog/>
+      <csimLog/>
+    </logs>
+  </errorLogs>
+  <warningLogs>
+    <logs>
+      <synLog>
+        <logs message="WARNING: [RTGEN 206-101] Global array 'notes' will not be exposed as RTL port." projectName="Synth_IP" solutionName="solution1" date="2019-04-24T16:17:31.815-0400" type="Warning"/>
+        <logs message="WARNING: [RTGEN 206-101] Register 'modulator_conversion' is power-on initialization." projectName="Synth_IP" solutionName="solution1" date="2019-04-24T16:17:31.809-0400" type="Warning"/>
+        <logs message="WARNING: [RTGEN 206-101] Register 'modulator_wave_value' is power-on initialization." projectName="Synth_IP" solutionName="solution1" date="2019-04-24T16:17:31.801-0400" type="Warning"/>
+        <logs message="WARNING: [RTGEN 206-101] Register 'carrier_conversion' is power-on initialization." projectName="Synth_IP" solutionName="solution1" date="2019-04-24T16:17:31.793-0400" type="Warning"/>
+        <logs message="WARNING: [RTGEN 206-101] Global array 'Conversion' will not be exposed as RTL port." projectName="Synth_IP" solutionName="solution1" date="2019-04-24T16:17:31.785-0400" type="Warning"/>
+        <logs message="WARNING: [RTGEN 206-101] Register 'carrier_wave_values_s' is power-on initialization." projectName="Synth_IP" solutionName="solution1" date="2019-04-24T16:17:31.777-0400" type="Warning"/>
+        <logs message="WARNING: [RTGEN 206-101] Register 'car_size' is power-on initialization." projectName="Synth_IP" solutionName="solution1" date="2019-04-24T16:17:31.769-0400" type="Warning"/>
+        <logs message="WARNING: [RTGEN 206-101] Register 'mod_size' is power-on initialization." projectName="Synth_IP" solutionName="solution1" date="2019-04-24T16:17:31.761-0400" type="Warning"/>
+        <logs message="WARNING: [RTGEN 206-101] Global array 'sizes' will not be exposed as RTL port." projectName="Synth_IP" solutionName="solution1" date="2019-04-24T16:17:31.753-0400" type="Warning"/>
+        <logs message="WARNING: [RTGEN 206-101] Register 'car_octave' is power-on initialization." projectName="Synth_IP" solutionName="solution1" date="2019-04-24T16:17:31.747-0400" type="Warning"/>
+        <logs message="WARNING: [RTGEN 206-101] Register 'mod_octave' is power-on initialization." projectName="Synth_IP" solutionName="solution1" date="2019-04-24T16:17:31.742-0400" type="Warning"/>
+        <logs message="WARNING: [RTGEN 206-101] Register 'position' is power-on initialization." projectName="Synth_IP" solutionName="solution1" date="2019-04-24T16:17:31.738-0400" type="Warning"/>
+        <logs message="WARNING: [RTGEN 206-101] Register 'change' is power-on initialization." projectName="Synth_IP" solutionName="solution1" date="2019-04-24T16:17:31.732-0400" type="Warning"/>
+      </synLog>
+      <simLog/>
+      <mgLog/>
+      <packageLog>
+        <logs message="WARNING: [IP_Flow 19-4832] The IP name 'FM_Synth_ap_sitofp_4_no_dsp_32' you have specified is long. The Windows operating system has path length limitations. It is recommended you use shorter names to reduce the likelihood of issues." projectName="Synth_IP" solutionName="solution1" date="2019-04-24T16:18:37.713-0400" type="Warning"/>
+        <logs message="WARNING: [IP_Flow 19-4832] The IP name 'FM_Synth_ap_fpext_0_no_dsp_32' you have specified is long. The Windows operating system has path length limitations. It is recommended you use shorter names to reduce the likelihood of issues." projectName="Synth_IP" solutionName="solution1" date="2019-04-24T16:18:36.511-0400" type="Warning"/>
+        <logs message="WARNING: [IP_Flow 19-4832] The IP name 'FM_Synth_ap_fadd_3_full_dsp_32' you have specified is long. The Windows operating system has path length limitations. It is recommended you use shorter names to reduce the likelihood of issues." projectName="Synth_IP" solutionName="solution1" date="2019-04-24T16:18:35.415-0400" type="Warning"/>
+        <logs message="WARNING: [IP_Flow 19-4832] The IP name 'FM_Synth_ap_fmul_2_max_dsp_32' you have specified is long. The Windows operating system has path length limitations. It is recommended you use shorter names to reduce the likelihood of issues." projectName="Synth_IP" solutionName="solution1" date="2019-04-24T16:18:34.365-0400" type="Warning"/>
+      </packageLog>
+      <csimLog/>
+    </logs>
+  </warningLogs>
+</vivadoHLSLog:LogRoot>

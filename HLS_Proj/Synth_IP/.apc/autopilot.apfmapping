@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<autopilotfilemapping:AutoPilotFileMapping xmlns:autopilotfilemapping="www.autoesl.com/autopilotfilemapping">
+  <source>
+    <originFiles name="HLS_FMSYNTH.cpp" path="/home/austin/ECE1373_GhostSynth/modules/FMSYNTH/hls_module/HLS_FMSYNTH.cpp"/>
+    <originFiles name="HLS_FMSYNTH.h" path="/home/austin/ECE1373_GhostSynth/modules/FMSYNTH/hls_module/HLS_FMSYNTH.h"/>
+  </source>
+  <testbench>
+    <originFiles name="fmsynth_test.cpp" path="/home/austin/ECE1373_GhostSynth/modules/FMSYNTH/hls_module/fmsynth_test.cpp"/>
+  </testbench>
+</autopilotfilemapping:AutoPilotFileMapping>

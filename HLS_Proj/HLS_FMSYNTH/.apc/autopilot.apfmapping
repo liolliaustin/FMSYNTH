@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<autopilotfilemapping:AutoPilotFileMapping xmlns:autopilotfilemapping="www.autoesl.com/autopilotfilemapping">
-  <source>
-    <originFiles name="HLS_FMSYNTH.cpp" path="/root/repo/ECE1373_GhostSynth/modules/FMSYNTH/hls_module/HLS_FMSYNTH.cpp"/>
-    <originFiles name="HLS_FMSYNTH.h" path="/root/repo/ECE1373_GhostSynth/modules/FMSYNTH/hls_module/HLS_FMSYNTH.h"/>
-  </source>
-  <testbench/>
-</autopilotfilemapping:AutoPilotFileMapping>
